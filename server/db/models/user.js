@@ -29,6 +29,9 @@ const User = db.define('user', {
   },
   luckyNum : {
     type: Sequelize.INTEGER
+  },
+  favouriteColour : {
+    type: Sequelize.STRING
   }
 })
 
