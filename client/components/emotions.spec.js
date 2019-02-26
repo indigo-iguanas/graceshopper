@@ -4,19 +4,19 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import {UserHome} from './user-home'
+import Emotions from './emotions.js'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-xdescribe('UserHome', () => {
-  let userHome
+describe('Emotions', () => {
+  let emotions
 
   beforeEach(() => {
-    userHome = shallow(<UserHome email="cody@email.com" />)
+    emotions = shallow(<Emotions />)
   })
 
-  it('renders the email in an h3', () => {
-    expect(userHome.find('h3').text()).to.be.equal('Welcome, cody@email.com')
+  it('renders the emotions in an ul tag', () => {
+    expect(emotions.find('ul'))
   })
 })
