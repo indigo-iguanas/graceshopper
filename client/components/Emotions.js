@@ -32,14 +32,14 @@ class Emotions extends Component {
   }
 }
 
-export default Emotions
+// export default Emotions
 
-// const mapStateToProps = state => ({
-//   emotions: state.reducer.emotions
-// })
+const mapStateToProps = state => ({
+  emotions: state.reducer.emotions
+})
 
-// const mapDispatchToProps = dispatch => ({
-//   fetchAllEmotions: () => dispatch(getEmotionFromServer())
-// })
+const mapDispatchToProps = dispatch => ({
+  fetchAllEmotions: () => dispatch(getEmotionFromServer())
+})
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Emotions)
+export default connect(mapStateToProps, mapDispatchToProps)(Emotions)
