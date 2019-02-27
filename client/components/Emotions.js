@@ -1,32 +1,26 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getEmotionFromServer} from '../store/emotions'
+import EmotionCard from './emotionCard'
 
 class Emotions extends Component {
   constructor() {
     super()
   }
 
-  // componentDidMount() {
-  //   this.props.fetchAllEmotions()
-  // }
+  componentDidMount() {
+    this.props.fetchAllEmotions()
+  }
 
   render() {
     return (
       <div>
-        Select desired emotion:
+        <div className="logo">Emotions R Us</div>
         <ul>
-          <li>Emotions</li>
+          {this.props.emotions.emotions.map(emotion => {
+            return <EmotionCard key={emotion.id} emotion={emotion} />
+          })}
         </ul>
-        {/* {
-          this.props.emotions.map(emotion => {
-          <ul key={emotion.id}>
-          return (
-            <li>Emotion{emotion.name}</li>
-            )
-          </ul>
-          })
-        } */}
       </div>
     )
   }

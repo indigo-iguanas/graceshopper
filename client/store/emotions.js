@@ -20,7 +20,7 @@ const getSingleEmotion = singleEmotion => ({
 export const getEmotionFromServer = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/api/emotions')
+      const {data} = await axios.get('/api/emotion')
       dispatch(getEmotions(data))
     } catch (error) {
       console.log(error)

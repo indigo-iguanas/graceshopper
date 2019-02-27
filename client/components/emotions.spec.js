@@ -10,7 +10,7 @@ import thunkMiddleware from 'redux-thunk'
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
-import Emotions from './Emotions.js'
+import Emotions from './emotions.js'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
