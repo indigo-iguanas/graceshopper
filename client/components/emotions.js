@@ -26,8 +26,6 @@ class Emotions extends Component {
   }
 }
 
-// export default Emotions
-
 const mapStateToProps = state => ({
   emotions: state.emotions
 })
