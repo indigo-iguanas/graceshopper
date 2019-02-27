@@ -7,8 +7,8 @@ import Emotions from './components/emotions'
 const App = () => {
   return (
     <div>
-      {/*TODO <Navbar />
-      <Routes />*/}
+      <Navbar />
+      <Routes />
       <Emotions />
     </div>
   )
