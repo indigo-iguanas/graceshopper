@@ -24,12 +24,4 @@ deploy:
   provider: heroku
   app: 'emotionsrus'
   api_key:
-    secure: iL7+Pe8JsG0hsi+dW89eDlxahJZZAk9R/jgE4gNzDR203W12LBeygQR++uRXRbtDCehUuDR+xkMM
-    # secure: Db67PeEiixtGY5MoGWJ9P97SKIx3mQqgNiDR/2u6MTwAEjJAshYc9W8NBNAOSkpJLZXFwDY+jEk2
-    # secure: q0xa+o8XOZzXhcUlMJ+vNHPHE/tHGU6a3t7q7Hc26LUf5rKdnrf5LDg0ioUZy9zfuGfYIwdGbWdn
-    # secure: 8krC0yxcM5LcmMQrdnkNZS+EYIfTURi/TfwgIbkgzgnrk8F5yKExKjWadndRSM4qbeMozaNjJbyK
-    # secure: lGW+uH4+t3oLSpzsYUc5nx2DNZEidzo/+ciHiVgnlvYWAaz2p8tHG9hd/V9En6Fyt7SaJKCcbA/N
-    # secure: kcVcWPNfdJA+rf55wPmXezMxoQDaYqsNnLX0wLo0p0eUSpKdvizYq4FMDsT7iQCHUfndwDBmZwND
-    # secure: xOlqwIHj9ILD1biPZvHpFQrGl0bPlRMt2H4N/J2GSKorwuziV2S1ZJL0mQjPh1XSXwxa2zcTZahq
-    # secure: sofIT8ofbezjXO53w6CcPMkTD6GTZoiiWnONhmoRE8pM69moOVNcEi75bCfV3SXp/A5YbMJcvGyw
-    # secure: FZYgSnLoR4s+GK/9dqj1ew93/4Yfu4aZSTnzF8N2QwaJxtXdlmBfmrwSYj0JKsh4QvcOzHlOvIc=
+    secure: iL7+Pe8JsG0hsi+dW89eDlxahJZZAk9R/jgE4gNzDR203W12LBeygQR++uRXRbtDCehUuDR+xkMMDb67PeEiixtGY5MoGWJ9P97SKIx3mQqgNiDR/2u6MTwAEjJAshYc9W8NBNAOSkpJLZXFwDY+jEk2q0xa+o8XOZzXhcUlMJ+vNHPHE/tHGU6a3t7q7Hc26LUf5rKdnrf5LDg0ioUZy9zfuGfYIwdGbWdn8krC0yxcM5LcmMQrdnkNZS+EYIfTURi/TfwgIbkgzgnrk8F5yKExKjWadndRSM4qbeMozaNjJbyKlGW+uH4+t3oLSpzsYUc5nx2DNZEidzo/+ciHiVgnlvYWAaz2p8tHG9hd/V9En6Fyt7SaJKCcbA/NkcVcWPNfdJA+rf55wPmXezMxoQDaYqsNnLX0wLo0p0eUSpKdvizYq4FMDsT7iQCHUfndwDBmZwNDxOlqwIHj9ILD1biPZvHpFQrGl0bPlRMt2H4N/J2GSKorwuziV2S1ZJL0mQjPh1XSXwxa2zcTZahqsofIT8ofbezjXO53w6CcPMkTD6GTZoiiWnONhmoRE8pM69moOVNcEi75bCfV3SXp/A5YbMJcvGywFZYgSnLoR4s+GK/9dqj1ew93/4Yfu4aZSTnzF8N2QwaJxtXdlmBfmrwSYj0JKsh4QvcOzHlOvIc=
