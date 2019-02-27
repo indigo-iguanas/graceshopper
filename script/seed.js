@@ -46,7 +46,7 @@ async function seed() {
     Emotion.create({name: 'aggravation'})
   ])
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${users.length} users ${emotions.length} emotions`)
   console.log(`seeded successfully`)
 }
 
