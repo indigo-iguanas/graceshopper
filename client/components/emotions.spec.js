@@ -4,6 +4,12 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+//import MockAdapter from 'axios-mock-adapter'
+import configureMockStore from 'redux-mock-store'
+import thunkMiddleware from 'redux-thunk'
+const middlewares = [thunkMiddleware]
+const mockStore = configureMockStore(middlewares)
+
 import Emotions from './Emotions.js'
 
 const adapter = new Adapter()
@@ -11,12 +17,24 @@ enzyme.configure({adapter})
 
 describe('Emotions', () => {
   let emotions
+  let store
+  //let mockAxios
+  let initialState = {
+    emotions: []
+  }
 
   beforeEach(() => {
-    emotions = shallow(<Emotions />)
+    //mockAxios = new MockAdapter(axios)
+    store = mockStore(initialState)
+    emotions = shallow(<Emotions store={store} />)
+  })
+
+  afterEach(() => {
+    //mockAxios.restore()
+    store.clearActions()
   })
 
   it('renders the emotions in an ul tag', () => {
-    expect(emotions.find('ul'))
+    expect(emotions.find('ul')).to.have.lengthOf(1)
   })
 })

@@ -35,7 +35,7 @@ class Emotions extends Component {
 // export default Emotions
 
 const mapStateToProps = state => ({
-  emotions: state.reducer.emotions
+  emotions: state.emotions
 })
 
 const mapDispatchToProps = dispatch => ({
