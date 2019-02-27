@@ -28,7 +28,7 @@ describe('thunk creators', () => {
     store.clearActions()
   })
 
-  describe('getEmotionFromServer', () => {
+  xdescribe('getEmotionFromServer', () => {
     it('eventually dispatches the GET_EMOTIONS action', async () => {
       const fakeEmotions = [
         {name: 'Happy', imageUrl: 'http://example.com/happiness.png'},

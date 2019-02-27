@@ -27,7 +27,7 @@ xdescribe('thunk creators', () => {
     store.clearActions()
   })
 
-  describe('me', () => {
+  xdescribe('me', () => {
     it('eventually dispatches the GET USER action', async () => {
       const fakeUser = {email: 'Cody'}
       mockAxios.onGet('/auth/me').replyOnce(200, fakeUser)
@@ -38,7 +38,7 @@ xdescribe('thunk creators', () => {
     })
   })
 
-  describe('logout', () => {
+  xdescribe('logout', () => {
     it('logout: eventually dispatches the REMOVE_USER action', async () => {
       mockAxios.onPost('/auth/logout').replyOnce(204)
       await store.dispatch(logout())
