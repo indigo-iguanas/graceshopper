@@ -16,12 +16,12 @@ install:
 before_script:
   - psql -c 'create database "emotionsrus-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: 'emotionsrus'
+  api_key:
+     secure: "rNj0wHlyxc2wZ0QsvqX8pmL1BKeOaadcmC2MTZ8KUT5uHAiiNvU1fdCy9tm48cDrJmLTcJ4DYpHIuu0JsxeHTn5nBEe2ZBJRS2nAQUsG2TuLCP+kqBv6XHtjCancB0+hQn3KeEVofhbglg9J+f3zzyl6P+VrIrDXhwCM8x7HfvEPmjxGhRQGttn3hNzI3OZiIcqpk8IxE7q2HacvrsPpw0oOJV2Val9Z/Ocnv2YkmfFZcL2bP/eGzWi3sHQiWAECKJpRDfRIrdFsWprEzX4i9UbX/Wa2sG4XL6hH0o4MFzSETe7sg+9cMmac456Trk7IVpO96TvTpD6XBu8nxLgDvcKRTLk7PF/Hy8wHy2XweMQ3eQIDJrjAVortRuXhZXT6HzKgbYXmyU3ZwZY6iC04CjK/581Of7coPWmQAyhrR/qHSYaz93Se/a4/XOA1rzdAJhJ4T34Qr6H9i1QdXoFKD1TBL/rDuNTMlovC1A7YkhOgxWQOSpdXzaUHfkWlhaAiiV17CWaAo9YWhAIuWZ9mFoSp3ukQrg4Ss8SaT+WzfEoTZj+bDs+FZaWoaTbTHE1cZ48SmojFkjlhg/m3RGUG437+0ZAUsXaJTTsVNr9gmBXpgysrcM1p6HJVZeW5XWz3jEnMNUw2rEBdKSdMgxmdK2nVxCCWtJW4CJI/hQivrYE="

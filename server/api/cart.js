@@ -20,7 +20,8 @@ router.get('/:id', async (req, res, next) => {
 router.post('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-    const order = await Order.create({...req.body, userId})
+    const emotionId = req.body.emotionId
+    const order = await Order.create({emotionId, userId})
     res.json(order)
   } catch (err) {
     next(err)

@@ -1,7 +1,7 @@
 {
   "name": "emotionsrus",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "This is our awesome graceshopper project!",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -34,7 +34,7 @@
       "git add"
     ]
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Indigo-Iguanas",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.3",
@@ -42,6 +42,7 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.16.3",
     "express-session": "^1.15.1",
+    "heroku": "^7.22.1",
     "history": "^4.6.3",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
