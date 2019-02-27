@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Emotion} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -10,6 +10,40 @@ async function seed() {
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
+  ])
+
+  const emotions = await Promise.all([
+    Emotion.create({
+      name: 'happiness',
+      imageUrl:
+        'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/smiling-face.png'
+    }),
+    Emotion.create({
+      name: 'sadness',
+      imageUrl:
+        'https://img.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2015/06/sleepy-face.png'
+    }),
+    Emotion.create({
+      name: 'ennui',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+    }),
+    Emotion.create({
+      name: 'waxing wroth',
+      imageUrl:
+        'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/pouting-face.png'
+    }),
+    Emotion.create({
+      name: 'joy',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+    }),
+    Emotion.create({
+      name: 'purring',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+    }),
+    Emotion.create({name: 'aggravation'})
   ])
 
   console.log(`seeded ${users.length} users`)
