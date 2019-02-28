@@ -1,27 +1,33 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getOrderFromServer, me} from '../store'
+import {withRouter} from 'react-router-dom'
 
 class Cart extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
-  componentDidMount() {
-    this.props.fetchUserFromStore()
+  async componentDidMount() {
+    await this.props.fetchUserFromStore()
     const id = this.props.user.id
-    this.props.fetchOrderFromStore(id)
+    await this.props.fetchOrderFromStore(id)
   }
 
   render() {
+    const order = this.props.order
+    console.log(order, 'this is the order')
+
     return (
       <div>
         <h1>THIS IS THE CART </h1>
-        <ul>
-          {this.props.order
-            .filter(element => element.status === 'inCart')
-            .map(element => <li>{element.emotion.name}</li>)}
-        </ul>
+        {order.length > 0 ? (
+          order.filter(el => el.status === 'inCart').map((el, idx) => {
+            return <li key={idx}>{el.emotionId}</li>
+          })
+        ) : (
+          <h1>No Orders In Your Cart Currently!</h1>
+        )}
       </div>
     )
   }
@@ -37,4 +43,4 @@ const mapDispatchToProps = dispatch => ({
   fetchUserFromStore: () => dispatch(me())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart))

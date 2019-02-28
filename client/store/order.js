@@ -20,7 +20,9 @@ export const getOrderFromServer = id => {
   }
 }
 
-const initialState = []
+const initialState = {
+  order: []
+}
 
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
