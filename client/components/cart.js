@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {} from '../store/order'
+import {getOrderFromServer, me} from '../store'
+// import {} from '../store/order'
 //Note: we want this to render in the navbar so import this into navbar component
 
 class Cart extends Component {
@@ -9,15 +9,34 @@ class Cart extends Component {
     super()
   }
   //change for order
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchUserFromStore()
+    const id = this.props.user.id
+    this.props.fetchOrderFromStore(id)
+  }
 
   render() {
-    return <div>THIS IS THE CART</div>
+    return (
+      <div>
+        <h1>THIS IS THE CART </h1>
+        <ul>
+          {this.props.order
+            .filter(element => element.status === 'inCart')
+            .map(element => <li>{element.emotion.name}</li>)}
+        </ul>
+      </div>
+    )
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  order: state.order,
+  user: state.user
+})
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  fetchOrderFromStore: id => dispatch(getOrderFromServer(id)),
+  fetchUserFromStore: () => dispatch(me())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
