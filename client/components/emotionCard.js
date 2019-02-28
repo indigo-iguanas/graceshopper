@@ -1,14 +1,14 @@
 import React from 'react'
 
-const emotionCard = props => {
+const emotionCard = ({clickHandler, emotion}) => {
+
   return (
     <div>
-      <img
-        width="100"
-        src={props.emotion.imageUrl}
-        alt="{props.emotion.name}"
-      />
-      <div>{props.emotion.name}</div>
+      <img width="100" src={emotion.imageUrl} alt={emotion.name} />
+      <div>{emotion.name}</div>
+      <button name={emotion.id} onClick={clickHandler}>
+        Add To Cart
+      </button>
     </div>
   )
 }
