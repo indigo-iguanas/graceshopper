@@ -1,7 +1,6 @@
 import React from 'react'
 
 const emotionCard = ({clickHandler, emotion}) => {
-  console.log(clickHandler)
   return (
     <div>
       <img width="100" src={emotion.imageUrl} alt={emotion.name} />
