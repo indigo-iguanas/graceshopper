@@ -1,14 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getOrderFromServer, me} from '../store'
-// import {} from '../store/order'
-//Note: we want this to render in the navbar so import this into navbar component
 
 class Cart extends Component {
   constructor() {
     super()
   }
-  //change for order
+
   componentDidMount() {
     this.props.fetchUserFromStore()
     const id = this.props.user.id
