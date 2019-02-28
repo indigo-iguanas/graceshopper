@@ -1,15 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getEmotionFromServer} from '../store/emotions'
+import {getEmotionFromServer, postEmotionsToCartModel} from '../store/emotions'
 import EmotionCard from './emotionCard'
 
 class Emotions extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.clickHandler = this.clickHandler.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchAllEmotions()
+  }
+
+  clickHandler(evt) {
+    //evt.target.name is the emotionId
+    this.props.addEmotionToCart(evt.target.name)
   }
 
   render() {
@@ -18,7 +24,13 @@ class Emotions extends Component {
         <div className="logo">Emotions R Us</div>
         <ul>
           {this.props.emotions.emotions.map(emotion => {
-            return <EmotionCard key={emotion.id} emotion={emotion} />
+            return (
+              <EmotionCard
+                clickHandler={this.clickHandler}
+                key={emotion.id}
+                emotion={emotion}
+              />
+            )
           })}
         </ul>
       </div>
@@ -31,7 +43,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllEmotions: () => dispatch(getEmotionFromServer())
+  fetchAllEmotions: () => dispatch(getEmotionFromServer()),
+  addEmotionToCart: emotionId => dispatch(postEmotionsToCartModel(emotionId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Emotions)
