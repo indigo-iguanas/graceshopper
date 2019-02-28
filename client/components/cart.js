@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {getOrderFromServer, me} from '../store'
 
 class Cart extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   componentDidMount() {
