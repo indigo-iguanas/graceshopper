@@ -55,7 +55,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchAllEmotions: () => dispatch(getEmotionFromServer()),
   addEmotionToCart: emotionId => dispatch(postEmotionsToCartModel(emotionId)),
-  currentlyLoggedInUser: () => dispatch(me())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Emotions)
