@@ -17,9 +17,9 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/:id', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const userId = req.params.id
+    const userId = req.session.passport.user
     const emotionId = req.body.emotionId
     const order = await Order.create({emotionId, userId})
     res.json(order)
