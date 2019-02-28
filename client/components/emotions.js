@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getEmotionFromServer, postEmotionsToCartModel} from '../store/emotions'
+import {me} from '../store/user'
 import EmotionCard from './emotionCard'
 
 class Emotions extends Component {
@@ -15,14 +16,21 @@ class Emotions extends Component {
 
   clickHandler(evt) {
     //evt.target.name is the emotionId
-    console.log(evt)
-    this.props.addEmotionToCart(evt.target.name)
+
+    if (
+      this.props.loggedInUser &&
+      this.props.loggedInUser.hasOwnProperty('id')
+    ) {
+      this.props.addEmotionToCart(evt.target.name)
+    } else {
+      alert('Please log in first.')
+    }
   }
 
   render() {
     return (
       <div>
-        <div className="logo">Emotions R Us</div>
+        <div className="logo">Emotions R Us hey hey</div>
         <ul>
           {this.props.emotions.emotions.map(emotion => {
             return (
@@ -40,12 +48,14 @@ class Emotions extends Component {
 }
 
 const mapStateToProps = state => ({
-  emotions: state.emotions
+  emotions: state.emotions,
+  loggedInUser: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchAllEmotions: () => dispatch(getEmotionFromServer()),
-  addEmotionToCart: emotionId => dispatch(postEmotionsToCartModel(emotionId))
+  addEmotionToCart: emotionId => dispatch(postEmotionsToCartModel(emotionId)),
+  currentlyLoggedInUser: () => dispatch(me())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Emotions)
