@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getEmotionFromServer, postEmotionsToCartModel} from '../store/emotions'
-import {me} from '../store/user'
 import EmotionCard from './emotionCard'
 
 class Emotions extends Component {
@@ -16,7 +15,6 @@ class Emotions extends Component {
 
   clickHandler(evt) {
     //evt.target.name is the emotionId
-
     if (
       this.props.loggedInUser &&
       this.props.loggedInUser.hasOwnProperty('id')
