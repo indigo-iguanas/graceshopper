@@ -14,14 +14,15 @@ class Cart extends Component {
   }
 
   render() {
+    const order = this.props.order
     return (
       <div>
         <h1>THIS IS THE CART </h1>
-        <ul>
-          {this.props.order
-            .filter(element => element.status === 'inCart')
-            .map(element => <li>{element.emotion.name}</li>)}
-        </ul>
+        {order.length > 0 ? (
+          order.map((el, idx) => <li key={idx}>hello?</li>)
+        ) : (
+          <h1>No Orders In Your Cart Currently!</h1>
+        )}
       </div>
     )
   }
