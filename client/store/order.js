@@ -25,7 +25,7 @@ const initialState = []
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ORDER:
-      return [...initialState, action.order]
+      return [...initialState, ...action.order]
     default:
       return state
   }
