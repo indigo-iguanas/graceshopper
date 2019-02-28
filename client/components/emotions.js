@@ -15,7 +15,6 @@ class Emotions extends Component {
 
   clickHandler(evt) {
     //evt.target.name is the emotionId
-    console.log(evt)
     this.props.addEmotionToCart(evt.target.name)
   }
 
