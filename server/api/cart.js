@@ -79,6 +79,7 @@ router.delete('/:id/:orderId', async (req, res, next) => {
           status: 'inCart'
         }
       })
+      res.send()
     }
   } catch (err) {
     next(err)

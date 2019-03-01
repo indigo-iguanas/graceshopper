@@ -33,12 +33,7 @@ class Cart extends Component {
                 <button
                   type="button"
                   onClick={() => {
-                    if (
-                      window.confirm(
-                        'Are you sure you do not want this emotion?'
-                      )
-                    )
-                      this.clickHandler(this.props.user.id, el.id)
+                    this.clickHandler(this.props.user.id, el.id)
                   }}
                 >
                   I DON'T WANT IT!

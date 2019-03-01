@@ -45,7 +45,7 @@ const orderReducer = (state = initialState, action) => {
     case GET_ORDER:
       return [...state, ...action.order]
     case DELETE_ORDER:
-      return [...state].filter(order => order.id !== action.orderId)
+      return state.filter(order => order.id !== action.orderId)
     default:
       return state
   }
