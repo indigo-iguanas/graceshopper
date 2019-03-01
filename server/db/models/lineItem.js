@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Order = db.define('order', {
+const LineItem = db.define('lineitem', {
   date: {
     type: Sequelize.DATE,
     defaultValue: Date.now
@@ -12,4 +12,4 @@ const Order = db.define('order', {
   }
 })
 
-module.exports = Order
+module.exports = LineItem

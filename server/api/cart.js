@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {Order, Emotion} = require('../db/models/index.js')
+const {LineItem, Emotion} = require('../db/models/index.js')
 module.exports = router
 
 router.get('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-    const cartItems = await Order.findAll({
+    const cartItems = await LineItem.findAll({
       where: {
         userId,
         status: 'inCart'
@@ -22,8 +22,8 @@ router.post('/', async (req, res, next) => {
   try {
     const userId = req.session.passport.user
     const emotionId = req.body.emotionId
-    const order = await Order.create({emotionId, userId})
-    res.json(order)
+    const lineItem = await LineItem.create({emotionId, userId})
+    res.json(lineItem)
   } catch (err) {
     next(err)
   }
@@ -38,7 +38,7 @@ router.put('/', async (req, res, next) => {
     ) {
       res.status(401).end()
     } else {
-      const [count, _rows] = await Order.update(
+      const [count, _rows] = await LineItem.update(
         {
           date: new Date(),
           status: 'purchased'
