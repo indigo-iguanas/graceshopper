@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models/index.js')
+const {Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
 router.get('/:id', async (req, res, next) => {
@@ -9,7 +9,8 @@ router.get('/:id', async (req, res, next) => {
       where: {
         userId,
         status: 'inCart'
-      }
+      },
+      include: [{model: Emotion}]
     })
     res.json(cartItems)
   } catch (err) {
