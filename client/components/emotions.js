@@ -15,7 +15,14 @@ class Emotions extends Component {
 
   clickHandler(evt) {
     //evt.target.name is the emotionId
-    this.props.addEmotionToCart(evt.target.name)
+    if (
+      this.props.loggedInUser &&
+      this.props.loggedInUser.hasOwnProperty('id')
+    ) {
+      this.props.addEmotionToCart(evt.target.name)
+    } else {
+      alert('Please log in first.')
+    }
   }
 
   render() {
@@ -39,7 +46,8 @@ class Emotions extends Component {
 }
 
 const mapStateToProps = state => ({
-  emotions: state.emotions
+  emotions: state.emotions,
+  loggedInUser: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
