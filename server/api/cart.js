@@ -60,3 +60,32 @@ router.put('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const orderId = req.body.id
+    if (
+      !req.session.passport ||
+      !req.session.passport.hasOwnProperty('user') ||
+      userId !== req.session.passport.user
+    ) {
+      res.status(401).end()
+    } else {
+      await Order.destroy({
+        where: {
+          id: orderId,
+          userId: req.body.userId.id,
+          status: 'inCart'
+        }
+      })
+      if (count === 0) {
+        res.status(412).json('No items in cart')
+      } else {
+        res.status(204).end()
+      }
+    }
+  } catch (err) {
+    next(err)
+  }
+})
