@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderFromServer, me} from '../store'
+import {getOrderFromServer, me, deleteOrderFromServer} from '../store'
 import {withRouter} from 'react-router-dom'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
+    this.clickHandler = this.clickHandler.bind(this)
   }
 
   componentDidMount() {
@@ -14,17 +15,34 @@ class Cart extends Component {
     this.props.fetchOrderFromStore(id)
   }
 
+  clickHandler(id, orderId) {
+    this.props.deleteOrderFromStore(id, orderId)
+  }
+
   render() {
     const order = this.props.order
     return (
       <div>
-        <h1>THIS IS THE CART </h1>
+        <h1>Your cart</h1>
         {order.length > 0 ? (
           order.filter(el => el.status === 'inCart').map((el, idx) => {
             return (
-              <div key={el.id}>
+              <div key={idx}>
                 <h2>{el.emotion.name}</h2>
                 <img src={el.emotion.imageUrl} />
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        'Are you sure you do not want this emotion?'
+                      )
+                    )
+                      this.clickHandler(this.props.user.id, el.id)
+                  }}
+                >
+                  I DON'T WANT IT!
+                </button>
               </div>
             )
           })
@@ -43,7 +61,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchOrderFromStore: id => dispatch(getOrderFromServer(id)),
-  fetchUserFromStore: () => dispatch(me())
+  fetchUserFromStore: () => dispatch(me()),
+  deleteOrderFromStore: (id, orderId) =>
+    dispatch(deleteOrderFromServer(id, orderId))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart))

@@ -61,10 +61,10 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id/:orderId', async (req, res, next) => {
   try {
-    const userId = req.params.id
-    const orderId = req.body.id
+    const userId = Number(req.params.id)
+    const orderId = Number(req.params.orderId)
     if (
       !req.session.passport ||
       !req.session.passport.hasOwnProperty('user') ||
@@ -75,15 +75,10 @@ router.delete('/:id', async (req, res, next) => {
       await Order.destroy({
         where: {
           id: orderId,
-          userId: req.body.userId.id,
+          userId: userId,
           status: 'inCart'
         }
       })
-      if (count === 0) {
-        res.status(412).json('No items in cart')
-      } else {
-        res.status(204).end()
-      }
     }
   } catch (err) {
     next(err)
