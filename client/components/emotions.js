@@ -28,7 +28,7 @@ class Emotions extends Component {
   render() {
     return (
       <div>
-        <div className="logo">Emotions R Us</div>
+        <div className="logo">Let's get emotional!</div>
         <ul>
           {this.props.emotions.emotions.map(emotion => {
             return (
