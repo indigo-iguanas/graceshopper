@@ -1,12 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartFromServer, makePurchase, me} from '../store'
+import {
+  getCartFromServer,
+  makePurchase,
+  me,
+  deleteLineItemFromServer
+} from '../store'
 import {withRouter} from 'react-router-dom'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
     this.purchaseCart = this.purchaseCart.bind(this)
+    this.deleteBtnClickHandler = this.deleteBtnClickHandler.bind(this)
   }
 
   componentDidMount() {
@@ -14,7 +20,6 @@ class Cart extends Component {
     const id = this.props.user.id
     this.props.fetchCartFromStore(id)
   }
-
   purchaseCart() {
     try {
       this.props.makePurchase(this.props.user)
@@ -24,6 +29,10 @@ class Cart extends Component {
       // TODO - how to show this to customer?
       console.log('CART: purchase failed')
     }
+  }
+
+  deleteBtnClickHandler(id, lineItemId) {
+    this.props.deleteLineItemFromStore(id, lineItemId)
   }
 
   render() {
@@ -43,6 +52,14 @@ class Cart extends Component {
                   src={el.emotion.imageUrl}
                   alt={el.emotion.name}
                 />
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.deleteBtnClickHandler(this.props.user.id, el.id)
+                  }}
+                >
+                  I DON'T WANT IT!
+                </button>
               </div>
             )
           })}
@@ -62,7 +79,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchCartFromStore: id => dispatch(getCartFromServer(id)),
   fetchUserFromStore: () => dispatch(me()),
-  makePurchase: id => dispatch(makePurchase(id))
+  makePurchase: id => dispatch(makePurchase(id)),
+  deleteLineItemFromStore: (id, lineItemId) =>
+    dispatch(deleteLineItemFromServer(id, lineItemId))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart))
