@@ -1,28 +1,27 @@
 const User = require('./user')
 const Emotion = require('./emotions')
+const LineItem = require('./lineItem')
 const Order = require('./order')
-/**
- * If we had any associations to make, this would be a great place to put them!
- * ex. if we had another model called BlogPost, we might say:
- *
- *    BlogPost.belongsTo(User)
- */
 
-/**
- * We'll export all of our models here, so that any time a module needs a model,
- * we can just require it from 'db/models'
- * for example, we can say: const {User} = require('../db/models')
- * instead of: const User = require('../db/models/user')
- */
+Order.belongsTo(User, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'})
+User.hasMany(Order, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'})
 
-Order.belongsTo(User)
-User.hasMany(Order)
+LineItem.belongsTo(Order)
+Order.hasMany(LineItem)
 
-Order.belongsTo(Emotion)
-Emotion.hasMany(Order)
+// TODO - userId in LineItem & Order is redundant but necessary? Rethink this.
+LineItem.belongsTo(User, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'})
+User.hasMany(LineItem, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'})
+
+LineItem.belongsTo(Emotion, {
+  foreignKey: {allowNull: false},
+  onDelete: 'CASCADE'
+})
+Emotion.hasMany(LineItem, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'})
 
 module.exports = {
   User,
   Emotion,
+  LineItem,
   Order
 }
