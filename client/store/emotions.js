@@ -40,17 +40,6 @@ export const getSingleEmotionFromServer = id => {
   }
 }
 
-export const postEmotionsToCartModel = emotionId => {
-  return async dispatch => {
-    try {
-      const postedTo = await axios.post('/api/cart', {emotionId})
-    } catch (error) {
-      // TODO: letting customer know that the error has occured
-      console.log(error)
-    }
-  }
-}
-
 const initialState = {
   emotions: [],
   singleEmotion: {}

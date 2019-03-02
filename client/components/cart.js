@@ -20,6 +20,7 @@ class Cart extends Component {
     const id = this.props.user.id
     this.props.fetchCartFromStore(id)
   }
+
   purchaseCart() {
     try {
       this.props.makePurchase(this.props.user)

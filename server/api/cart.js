@@ -23,6 +23,8 @@ router.post('/', async (req, res, next) => {
     const userId = req.session.passport.user
     const emotionId = req.body.emotionId
     const lineItem = await LineItem.create({emotionId, userId})
+    const emotion = await lineItem.getEmotion()
+    lineItem.setDataValue('emotion', emotion)
     res.json(lineItem)
   } catch (err) {
     next(err)
