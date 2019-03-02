@@ -35,7 +35,7 @@ class Profile extends Component {
               return <OrderDetailCard key={order.id} order={order} />
             })
           ) : (
-            <div>noORders</div>
+            <div>You have no orders. Sorry.</div>
           )}
         </ol>
       </div>
