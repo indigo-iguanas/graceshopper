@@ -12,7 +12,7 @@ class Cart extends Component {
   constructor(props) {
     super(props)
     this.purchaseCart = this.purchaseCart.bind(this)
-    this.clickHandler = this.clickHandler.bind(this)
+    this.deleteBtnClickHandler = this.deleteBtnClickHandler.bind(this)
   }
 
   componentDidMount() {
@@ -31,7 +31,7 @@ class Cart extends Component {
     }
   }
 
-  clickHandler(id, lineItemId) {
+  deleteBtnClickHandler(id, lineItemId) {
     this.props.deleteLineItemFromStore(id, lineItemId)
   }
 
@@ -55,7 +55,7 @@ class Cart extends Component {
                 <button
                   type="button"
                   onClick={() => {
-                    this.clickHandler(this.props.user.id, el.id)
+                    this.deleteBtnClickHandler(this.props.user.id, el.id)
                   }}
                 >
                   I DON'T WANT IT!
