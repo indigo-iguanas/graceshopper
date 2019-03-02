@@ -2,7 +2,7 @@ const {expect} = require('chai')
 const db = require('../index')
 const Emotion = db.model('emotion')
 
-describe('Emotion model', () => {
+xdescribe('Emotion model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
