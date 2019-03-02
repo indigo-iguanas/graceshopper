@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getEmotionFromServer, postEmotionsToCartModel} from '../store/emotions'
+import {getEmotionFromServer} from '../store/emotions'
+import {addEmotionToCart} from '../store/cart'
+
 import EmotionCard from './emotionCard'
 
 class Emotions extends Component {
@@ -19,7 +21,13 @@ class Emotions extends Component {
       this.props.loggedInUser &&
       this.props.loggedInUser.hasOwnProperty('id')
     ) {
-      this.props.addEmotionToCart(evt.target.name)
+      const emotionId = +evt.target.name // hack, name is the id
+      const item = this.props.cart.find(i => i.emotionId === emotionId)
+      if (item === undefined) {
+        this.props.addEmotionToCart(emotionId)
+      } else {
+        alert(`${item.emotion.name} is already in your cart.`)
+      }
     } else {
       alert('Please log in first.')
     }
@@ -46,13 +54,14 @@ class Emotions extends Component {
 }
 
 const mapStateToProps = state => ({
+  cart: state.cart,
   emotions: state.emotions,
   loggedInUser: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchAllEmotions: () => dispatch(getEmotionFromServer()),
-  addEmotionToCart: emotionId => dispatch(postEmotionsToCartModel(emotionId))
+  addEmotionToCart: emotionId => dispatch(addEmotionToCart(emotionId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Emotions)
