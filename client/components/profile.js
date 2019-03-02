@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {me, fetchOrders} from '../store'
 import {withRouter} from 'react-router-dom'
+import OrderDetailCard from './orderDetailCard'
 
 class Profile extends Component {
   constructor(props) {
@@ -19,18 +20,24 @@ class Profile extends Component {
     return (
       <div>
         <h3>{`Profile for ${user.email}.`}</h3>
-        {allOrders.orders.length ? (
-          allOrders.orders.map((order, i) => {
-            return (
-              <div>
-                <h5>An Order</h5>
-                <h6>{`${i}: ${order.userId}`}</h6>
-              </div>
-            )
-          })
-        ) : (
-          <div>noORders</div>
-        )}
+        <hr />
+        <h4>User Details</h4>
+        <ul>
+          <li>hardcoded name</li>
+          <li>hardcoded email</li>
+          <li>hardcoded otherStuff</li>
+        </ul>
+        <hr />
+        <h4>Order History</h4>
+        <ol>
+          {allOrders.orders.length ? (
+            allOrders.orders.map(order => {
+              return <OrderDetailCard key={order.id} order={order} />
+            })
+          ) : (
+            <div>noORders</div>
+          )}
+        </ol>
       </div>
     )
   }
