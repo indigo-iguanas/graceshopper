@@ -37,35 +37,36 @@ class Cart extends Component {
 
   render() {
     const cart = this.props.cart
-    return (
+    return cart.length > 0 ? (
       <div>
         <button type="button" onClick={this.purchaseCart}>
           Purchase
         </button>
-        <h1>Your cart</h1>
         <div className="catalog">
-          {cart.length > 0 ? (
-            cart.filter(el => el.status === 'inCart').map((el, idx) => {
-              return (
-                <div key={idx}>
-                  <h2>{el.emotion.name}</h2>
-                  <img src={el.emotion.imageUrl} />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      this.clickHandler(this.props.user.id, el.id)
-                    }}
-                  >
-                    I DON'T WANT IT!
-                  </button>
-                </div>
-              )
-            })
-          ) : (
-            <h1>No Orders In Your Cart Currently!</h1>
-          )}
+          {cart.filter(el => el.status === 'inCart').map(el => {
+            return (
+              <div key={el.id}>
+                <h2>{el.emotion.name}</h2>
+                <img
+                  width="100"
+                  src={el.emotion.imageUrl}
+                  alt={el.emotion.name}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.clickHandler(this.props.user.id, el.id)
+                  }}
+                >
+                  I DON'T WANT IT!
+                </button>
+              </div>
+            )
+          })}
         </div>
       </div>
+    ) : (
+      <h1>No Orders In Your Cart Currently!</h1>
     )
   }
 }
