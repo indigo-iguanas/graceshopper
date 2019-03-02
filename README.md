@@ -27,6 +27,8 @@ Environment variables (either in a local file - do not push to github - or Herok
 
 ## TODO ------
 
+[ ] emotions should show for guests
+
 [x] buy button, clear cart
 
 [ ] show a message on successful purchase
@@ -34,15 +36,22 @@ Environment variables (either in a local file - do not push to github - or Herok
 [ ] show an error on failed purchase
 
 [ ] generalized "flash" area at top of page: you already have one of these in cart, you just bought, errors, etc
-[ ] cart icon in upper right
-[ ] cart on rhs? responsive: not in mobile width
-[ ] show old orders (open, shipped, cancel)
-[ ] tiers (emotions -> tiers; tiers can be purchased)
-[x] minimal - grid for emotions, small pix for cart
-[ ] tests!
-[ ] api minimal auth middleware isAuthenticatedUser
-[ ] emotions should show for guests
+
+[x] css: minimal - grid for emotions, small pix for cart
+
 [ ] css: catalog space between spreads unfilled last line out - want a grid, leave space at end
+
+[ ] tests!
+
+[ ] api auth: minimal - middleware isAuthenticatedUser
+
+[ ] cart icon in upper right
+
+[ ] cart on rhs? responsive: not in mobile width
+
+[ ] show old orders (open, shipped, cancel)
+
+[ ] tiers (emotions -> tiers; tiers can be purchased)
 
 ## Deployment
 
