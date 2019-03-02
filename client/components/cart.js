@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderFromServer, me, deleteOrderFromServer} from '../store'
+import {getCartFromServer, me, deleteLineItemFromServer} from '../store'
 import {withRouter} from 'react-router-dom'
 
 class Cart extends Component {
@@ -12,20 +12,20 @@ class Cart extends Component {
   componentDidMount() {
     this.props.fetchUserFromStore()
     const id = this.props.user.id
-    this.props.fetchOrderFromStore(id)
+    this.props.fetchCartFromStore(id)
   }
 
-  clickHandler(id, orderId) {
-    this.props.deleteOrderFromStore(id, orderId)
+  clickHandler(id, lineItemId) {
+    this.props.deleteLineItemFromStore(id, lineItemId)
   }
 
   render() {
-    const order = this.props.order
+    const cart = this.props.cart
     return (
       <div>
         <h1>Your cart</h1>
-        {order.length > 0 ? (
-          order.filter(el => el.status === 'inCart').map((el, idx) => {
+        {cart.length > 0 ? (
+          cart.filter(el => el.status === 'inCart').map((el, idx) => {
             return (
               <div key={idx}>
                 <h2>{el.emotion.name}</h2>
@@ -50,15 +50,15 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  order: state.order,
+  cart: state.cart,
   user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchOrderFromStore: id => dispatch(getOrderFromServer(id)),
+  fetchCartFromStore: id => dispatch(getCartFromServer(id)),
   fetchUserFromStore: () => dispatch(me()),
-  deleteOrderFromStore: (id, orderId) =>
-    dispatch(deleteOrderFromServer(id, orderId))
+  deleteLineItemFromStore: (id, lineItemId) =>
+    dispatch(deleteLineItemFromServer(id, lineItemId))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart))
