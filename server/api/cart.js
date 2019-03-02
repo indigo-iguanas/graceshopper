@@ -2,6 +2,15 @@ const router = require('express').Router()
 const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
+userCheck = (session, userBody) => {
+  if (
+    !session ||
+    !session.hasOwnProperty('user') ||
+    userBody.userId.id !== session.user
+  )
+    return false
+  else return true
+}
 router.get('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
@@ -33,11 +42,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    if (
-      !req.session.passport ||
-      !req.session.passport.hasOwnProperty('user') ||
-      req.body.userId.id !== req.session.passport.user
-    ) {
+    if (!userCheck(req.session.passport, req.body)) {
       res.status(401).end()
     } else {
       // TODO - create order and update line items should be in a transaction
@@ -70,11 +75,7 @@ router.delete('/:id/:lineItemId', async (req, res, next) => {
   try {
     const userId = Number(req.params.id)
     const lineItemId = Number(req.params.lineItemId)
-    if (
-      !req.session.passport ||
-      !req.session.passport.hasOwnProperty('user') ||
-      userId !== req.session.passport.user
-    ) {
+    if (!userCheck(req.session.passport, req.body)) {
       res.status(401).end()
     } else {
       await LineItem.destroy({
