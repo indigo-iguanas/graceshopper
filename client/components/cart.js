@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartFromServer, me} from '../store'
 import {withRouter} from 'react-router-dom'
+import axios from 'axios'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
+    this.purchaseCart = this.purchaseCart.bind(this)
   }
 
   componentDidMount() {
@@ -14,11 +16,24 @@ class Cart extends Component {
     this.props.fetchCartFromStore(id)
   }
 
+  async purchaseCart() {
+    try {
+      const orderId = await axios.put('/api/cart', {userId: this.props.user})
+      // TODO - how to show this to customer?
+      console.log('CART: purchase succeeded, order id:', orderId)
+    } catch (err) {
+      // TODO - how to show this to customer?
+      console.log('CART: purchase failed')
+    }
+  }
+
   render() {
     const cart = this.props.cart
     return (
       <div>
-        <h1>THIS IS THE CART </h1>
+        <button type="button" onClick={this.purchaseCart}>
+          Purchase
+        </button>
         <div className="catalog">
           {cart.length > 0 ? (
             cart.filter(el => el.status === 'inCart').map(el => {
