@@ -28,8 +28,11 @@ Environment variables (either in a local file - do not push to github - or Herok
 ## TODO ------
 
 [x] buy button, clear cart
+
 [ ] show a message on successful purchase
+
 [ ] show an error on failed purchase
+
 [ ] generalized "flash" area at top of page: you already have one of these in cart, you just bought, errors, etc
 [ ] cart icon in upper right
 [ ] cart on rhs? responsive: not in mobile width
