@@ -19,18 +19,24 @@ class Cart extends Component {
     return (
       <div>
         <h1>THIS IS THE CART </h1>
-        {cart.length > 0 ? (
-          cart.filter(el => el.status === 'inCart').map((el, idx) => {
-            return (
-              <div key={el.id}>
-                <h2>{el.emotion.name}</h2>
-                <img src={el.emotion.imageUrl} />
-              </div>
-            )
-          })
-        ) : (
-          <h1>No Orders In Your Cart Currently!</h1>
-        )}
+        <div className="catalog">
+          {cart.length > 0 ? (
+            cart.filter(el => el.status === 'inCart').map(el => {
+              return (
+                <div key={el.id}>
+                  <h2>{el.emotion.name}</h2>
+                  <img
+                    width="100"
+                    src={el.emotion.imageUrl}
+                    alt={el.emotion.name}
+                  />
+                </div>
+              )
+            })
+          ) : (
+            <h1>No Orders In Your Cart Currently!</h1>
+          )}
+        </div>
       </div>
     )
   }
