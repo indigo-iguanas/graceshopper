@@ -1,12 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartFromServer, makePurchase, me} from '../store'
+import {
+  getCartFromServer,
+  makePurchase,
+  me,
+  deleteLineItemFromServer
+} from '../store'
 import {withRouter} from 'react-router-dom'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
     this.purchaseCart = this.purchaseCart.bind(this)
+    this.deleteBtnClickHandler = this.deleteBtnClickHandler.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +32,10 @@ class Cart extends Component {
     }
   }
 
+  deleteBtnClickHandler(id, lineItemId) {
+    this.props.deleteLineItemFromStore(id, lineItemId)
+  }
+
   render() {
     const cart = this.props.cart
     return cart.length > 0 ? (
@@ -43,6 +53,14 @@ class Cart extends Component {
                   src={el.emotion.imageUrl}
                   alt={el.emotion.name}
                 />
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.deleteBtnClickHandler(this.props.user.id, el.id)
+                  }}
+                >
+                  I DON'T WANT IT!
+                </button>
               </div>
             )
           })}
@@ -62,7 +80,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchCartFromStore: id => dispatch(getCartFromServer(id)),
   fetchUserFromStore: () => dispatch(me()),
-  makePurchase: id => dispatch(makePurchase(id))
+  makePurchase: id => dispatch(makePurchase(id)),
+  deleteLineItemFromStore: (id, lineItemId) =>
+    dispatch(deleteLineItemFromServer(id, lineItemId))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart))

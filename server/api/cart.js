@@ -65,3 +65,28 @@ router.put('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/:id/:lineItemId', async (req, res, next) => {
+  try {
+    const userId = Number(req.params.id)
+    const lineItemId = Number(req.params.lineItemId)
+    if (
+      !req.session.passport ||
+      !req.session.passport.hasOwnProperty('user') ||
+      userId !== req.session.passport.user
+    ) {
+      res.status(401).end()
+    } else {
+      await LineItem.destroy({
+        where: {
+          id: lineItemId,
+          userId: userId,
+          status: 'inCart'
+        }
+      })
+      res.send()
+    }
+  } catch (err) {
+    next(err)
+  }
+})

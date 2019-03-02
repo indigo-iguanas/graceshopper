@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-const initialState = []
-
 //Action type
 const GET_CART = 'GET_CART'
 const MADE_PURCHASE = 'MADE_PURCHASE'
 const ADDED_TO_CART = 'ADDED_TO_CART'
+const DELETE_LINE_ITEM = 'DELETE_LINE_ITEM'
 
 const getCart = cart => ({
   type: GET_CART,
@@ -19,6 +18,11 @@ const madePurchase = () => ({
 const addedToCart = id => ({
   type: ADDED_TO_CART,
   id
+})
+
+const deleteLineItem = lineItemId => ({
+  type: DELETE_LINE_ITEM,
+  lineItemId
 })
 
 export const getCartFromServer = id => {
@@ -52,16 +56,32 @@ export const addEmotionToCart = emotionId => {
       const res = await axios.post('/api/cart', {emotionId})
       dispatch(addedToCart(res.data))
     } catch (error) {
-      // TODO: letting customer know that the error has occured
+      // TODO: let customer know that the error has occured
       console.log(error)
     }
   }
 }
 
+export const deleteLineItemFromServer = (id, lineItemId) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/cart/${id}/${lineItemId}`)
+      dispatch(deleteLineItem(lineItemId))
+    } catch (error) {
+      // TODO: let customer know that the error has occured
+      console.log(error)
+    }
+  }
+}
+
+const initialState = []
+
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
       return [...action.cart]
+    case DELETE_LINE_ITEM:
+      return state.filter(lineItem => lineItem.id !== action.lineItemId)
     case ADDED_TO_CART:
       return [...state, action.id]
     case MADE_PURCHASE:

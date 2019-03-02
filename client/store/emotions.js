@@ -32,7 +32,7 @@ export const getSingleEmotionFromServer = id => {
   return async dispatch => {
     try {
       //need to confirm route
-      const {data} = await axios.get(`api/emotions/${id}`)
+      const {data} = await axios.get(`api/emotions/${id}`, {orderId})
       dispatch(getSingleEmotion(data))
     } catch (error) {
       console.log(error)
