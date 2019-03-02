@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {LineItem, Emotion} = require('../db/models/index.js')
+const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
 router.get('/:id', async (req, res, next) => {
@@ -38,10 +38,13 @@ router.put('/', async (req, res, next) => {
     ) {
       res.status(401).end()
     } else {
+      // TODO - create order and update line items should be in a transaction
+      const order = await Order.create({userId: req.body.userId.id})
       const [count, _rows] = await LineItem.update(
         {
           date: new Date(),
-          status: 'purchased'
+          status: 'purchased',
+          orderId: order.id
         },
         {
           where: {

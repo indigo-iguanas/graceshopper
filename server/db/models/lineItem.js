@@ -4,10 +4,12 @@ const db = require('../db')
 const LineItem = db.define('lineitem', {
   date: {
     type: Sequelize.DATE,
-    defaultValue: Date.now
+    allowNull: true,
+    defaultValue: null
   },
   status: {
     type: Sequelize.ENUM('inCart', 'purchased'),
+    allowNull: false,
     defaultValue: 'inCart'
   }
 })

@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Emotion, LineItem} = require('../server/db/models')
+const {User, Emotion, LineItem, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -46,34 +46,53 @@ async function seed() {
     Emotion.create({name: 'aggravation'})
   ])
 
+  const orders = await Promise.all([Order.create({userId: users[1].id})])
+
+  const now = new Date()
+
   const lineItem = await Promise.all([
+    // an unpurchased cart
     LineItem.create({
-      userId: 1,
-      emotionId: 1
+      userId: users[0].id,
+      emotionId: emotions[0].id
     }),
     LineItem.create({
-      userId: 1,
-      emotionId: 2
+      userId: users[0].id,
+      emotionId: emotions[1].id
     }),
     LineItem.create({
-      userId: 1,
-      emotionId: 3
+      userId: users[0].id,
+      emotionId: emotions[2].id
+    }),
+
+    // a purchased order
+    LineItem.create({
+      userId: users[1].id,
+      emotionId: emotions[0].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     }),
     LineItem.create({
-      userId: 2,
-      emotionId: 1
+      userId: users[1].id,
+      emotionId: emotions[0].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     }),
     LineItem.create({
-      userId: 2,
-      emotionId: 1
+      userId: users[1].id,
+      emotionId: emotions[1].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     }),
     LineItem.create({
-      userId: 2,
-      emotionId: 2
-    }),
-    LineItem.create({
-      userId: 2,
-      emotionId: 3
+      userId: users[1].id,
+      emotionId: emotions[2].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     })
   ])
 
