@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Emotion, Order} = require('../server/db/models')
+const {User, Emotion, LineItem, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -46,41 +46,60 @@ async function seed() {
     Emotion.create({name: 'aggravation'})
   ])
 
-  const order = await Promise.all([
-    Order.create({
-      userId: 1,
-      emotionId: 1
+  const orders = await Promise.all([Order.create({userId: users[1].id})])
+
+  const now = new Date()
+
+  const lineItem = await Promise.all([
+    // an unpurchased cart
+    LineItem.create({
+      userId: users[0].id,
+      emotionId: emotions[0].id
     }),
-    Order.create({
-      userId: 1,
-      emotionId: 2
+    LineItem.create({
+      userId: users[0].id,
+      emotionId: emotions[1].id
     }),
-    Order.create({
-      userId: 1,
-      emotionId: 3
+    LineItem.create({
+      userId: users[0].id,
+      emotionId: emotions[2].id
     }),
-    Order.create({
-      userId: 2,
-      emotionId: 1
+
+    // a purchased order
+    LineItem.create({
+      userId: users[1].id,
+      emotionId: emotions[0].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     }),
-    Order.create({
-      userId: 2,
-      emotionId: 1
+    LineItem.create({
+      userId: users[1].id,
+      emotionId: emotions[0].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     }),
-    Order.create({
-      userId: 2,
-      emotionId: 2
+    LineItem.create({
+      userId: users[1].id,
+      emotionId: emotions[1].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     }),
-    Order.create({
-      userId: 2,
-      emotionId: 3
+    LineItem.create({
+      userId: users[1].id,
+      emotionId: emotions[2].id,
+      orderId: orders[0].id,
+      date: now,
+      status: 'purchased'
     })
   ])
 
   console.log(
     `seeded ${users.length} users ${emotions.length} emotions ${
-      order.length
-    } orders`
+      lineItem.length
+    } lineItems`
   )
   console.log(`seeded successfully`)
 }
