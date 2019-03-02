@@ -1,50 +1,49 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartFromServer, makePurchase, me} from '../store'
+import {me, fetchOrders} from '../store'
 import {withRouter} from 'react-router-dom'
 
 class Profile extends Component {
   constructor(props) {
     super(props)
-    this.purchaseCart = this.purchaseCart.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchUserFromStore()
-    const id = this.props.user.id
-    this.props.fetchCartFromStore(id)
-  }
-
-  purchaseCart() {
-    try {
-      this.props.makePurchase(this.props.user)
-      // TODO - how to show this to customer?
-      console.log('CART: purchase succeeded, order id ?')
-    } catch (err) {
-      // TODO - how to show this to customer?
-      console.log('CART: purchase failed')
-    }
+    this.props.getOrders()
   }
 
   render() {
-    const {user} = this.props
+    const {user, allOrders} = this.props
+    console.log('orders: ', allOrders.orders)
     return (
       <div>
         <h3>{`Profile for ${user.email}.`}</h3>
+        {allOrders.orders.length ? (
+          allOrders.orders.map((order, i) => {
+            return (
+              <div>
+                <h5>An Order</h5>
+                <h6>{`${i}: ${order.userId}`}</h6>
+              </div>
+            )
+          })
+        ) : (
+          <div>noORders</div>
+        )}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
-  user: state.user
+  user: state.user,
+  allOrders: state.order
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchCartFromStore: id => dispatch(getCartFromServer(id)),
   fetchUserFromStore: () => dispatch(me()),
-  makePurchase: id => dispatch(makePurchase(id))
+  getOrders: () => dispatch(fetchOrders())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile))
