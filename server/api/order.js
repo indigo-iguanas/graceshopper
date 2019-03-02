@@ -4,12 +4,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    if (
-      !req.session.passport ||
-      !req.session.passport.hasOwnProperty('user')
-      //req.body is coming in as {}
-      //req.body.userId.id !== req.session.passport.user
-    ) {
+    if (!req.session.passport || !req.session.passport.hasOwnProperty('user')) {
       res.status(401).end()
     } else {
       const UserOrders = await Order.findAll({
