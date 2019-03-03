@@ -39,9 +39,8 @@ nav {
   justify-content: space-between;
 }
 
-.cartImage {
-  width: 5%;
-  height: 5%;
-  padding: 0;
-  border: 0;
+.container {
+  justify-content: space-evenly;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
 }

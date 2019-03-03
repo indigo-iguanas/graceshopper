@@ -13,8 +13,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">All Emotions</Link>
           <Link to="/profile">Profile</Link>
-          <Link className="cartImage" to="/cart">
-            <img src="http://www.clker.com/cliparts/z/w/u/l/v/F/marcs-shopping-cart-md.png" />
+          <Link to="/cart">
+            <img
+              className="image is-48x48"
+              src="http://www.clker.com/cliparts/z/w/u/l/v/F/marcs-shopping-cart-md.png"
+            />
           </Link>
           <a href="#" onClick={handleClick}>
             Logout
