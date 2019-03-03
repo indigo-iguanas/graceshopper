@@ -1,9 +1,14 @@
+html {
+  background: white;
+  height: 100%;
+}
+
 body {
   font-family: sans-serif;
 }
 
 a {
-  text-decoration: none;
+  color: white;
 }
 
 label {
@@ -20,6 +25,13 @@ form div {
   display: inline-block;
 }
 
+nav {
+  background: #00c967;
+  text-align: center;
+  color: white;
+  border-bottom: 5px solid #282d3c;
+  font-weight: bold;
+}
 .catalog {
   display: flex;
   flex-direction: row;
