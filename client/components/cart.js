@@ -11,6 +11,7 @@ import {withRouter} from 'react-router-dom'
 class Cart extends Component {
   constructor(props) {
     super(props)
+
     this.purchaseCart = this.purchaseCart.bind(this)
     this.deleteBtnClickHandler = this.deleteBtnClickHandler.bind(this)
   }
@@ -23,7 +24,10 @@ class Cart extends Component {
 
   purchaseCart() {
     try {
-      this.props.makePurchase(this.props.user)
+      this.props.makePurchase(
+        this.props.user,
+        parseFloat(this.props.cart.subTotal).toPrecision(3)
+      )
       // TODO - how to show this to customer?
       console.log('CART: purchase succeeded, order id ?')
     } catch (err) {
@@ -34,12 +38,17 @@ class Cart extends Component {
 
   deleteBtnClickHandler(id, lineItemId) {
     this.props.deleteLineItemFromStore(id, lineItemId)
+    this.props.fetchCartFromStore(id)
   }
 
   render() {
-    const cart = this.props.cart
+    const cart = this.props.cart.cart
+    const truncatedTotalPrice = parseFloat(
+      this.props.cart.subTotal
+    ).toPrecision(3)
     return cart.length > 0 ? (
       <div>
+        <h3>{`Total: $${truncatedTotalPrice}`}</h3>
         <button type="button" onClick={this.purchaseCart}>
           Purchase
         </button>
@@ -48,11 +57,13 @@ class Cart extends Component {
             return (
               <div key={el.id}>
                 <h2>{el.emotion.name}</h2>
+                <h4>{`$${el.emotion.price}`}</h4>
                 <img
                   width="100"
                   src={el.emotion.imageUrl}
                   alt={el.emotion.name}
                 />
+                <br />
                 <button
                   type="button"
                   onClick={() => {
@@ -80,7 +91,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchCartFromStore: id => dispatch(getCartFromServer(id)),
   fetchUserFromStore: () => dispatch(me()),
-  makePurchase: id => dispatch(makePurchase(id)),
+  makePurchase: (id, subTotal) => dispatch(makePurchase(id, subTotal)),
   deleteLineItemFromStore: (id, lineItemId) =>
     dispatch(deleteLineItemFromServer(id, lineItemId))
 })

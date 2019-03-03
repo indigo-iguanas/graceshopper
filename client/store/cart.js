@@ -37,11 +37,12 @@ export const getCartFromServer = id => {
   }
 }
 
-export const makePurchase = id => {
+export const makePurchase = (id, subTotal) => {
   return async dispatch => {
     try {
-      const {orderId} = await axios.put(`/api/cart`, {userId: id})
+      const {orderId} = await axios.put(`/api/cart`, {userId: id, subTotal})
       dispatch(madePurchase())
+      console.dir('**', id)
       alert(`Order complete. Order id: ${orderId}.`)
     } catch (error) {
       alert('Error. Purchase not made.')
@@ -54,7 +55,7 @@ export const addEmotionToCart = emotionId => {
   return async dispatch => {
     try {
       const res = await axios.post('/api/cart', {emotionId})
-      dispatch(addedToCart(res.data))
+      dispatch(addedToCart(res.data, res.data.price))
     } catch (error) {
       // TODO: let customer know that the error has occured
       console.log(error)
@@ -74,21 +75,40 @@ export const deleteLineItemFromServer = (id, lineItemId) => {
   }
 }
 
-const initialState = []
+const initialState = {
+  cart: [],
+  subTotal: 0
+}
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
-      return [...action.cart]
+      return {
+        ...state,
+        cart: [...action.cart],
+        subTotal: addUpCart(action.cart)
+      }
     case DELETE_LINE_ITEM:
-      return state.filter(lineItem => lineItem.id !== action.lineItemId)
+      return {
+        ...state,
+        cart: state.cart.filter(lineItem => lineItem.id !== action.lineItemId)
+      }
     case ADDED_TO_CART:
-      return [...state, action.id]
+      return {
+        ...state,
+        cart: [...state, action.id]
+      }
     case MADE_PURCHASE:
       return initialState
     default:
       return state
   }
+}
+
+function addUpCart(arrOfObjs) {
+  return arrOfObjs.reduce((acc, elem) => {
+    return (acc += Number(elem.emotion.price))
+  }, 0)
 }
 
 export default cartReducer
