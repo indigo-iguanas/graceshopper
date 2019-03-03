@@ -57,7 +57,7 @@ class Cart extends Component {
             return (
               <div key={el.id}>
                 <h2>{el.emotion.name}</h2>
-                <h4>{`$${el.emotion.price}`}</h4>
+                <h4>{`$${parseFloat(el.emotion.price).toPrecision(3)}`}</h4>
                 <img
                   width="100"
                   src={el.emotion.imageUrl}

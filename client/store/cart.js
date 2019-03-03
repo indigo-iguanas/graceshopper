@@ -42,7 +42,6 @@ export const makePurchase = (id, subTotal) => {
     try {
       const {orderId} = await axios.put(`/api/cart`, {userId: id, subTotal})
       dispatch(madePurchase())
-      console.dir('**', id)
       alert(`Order complete. Order id: ${orderId}.`)
     } catch (error) {
       alert('Error. Purchase not made.')
@@ -55,7 +54,7 @@ export const addEmotionToCart = emotionId => {
   return async dispatch => {
     try {
       const res = await axios.post('/api/cart', {emotionId})
-      dispatch(addedToCart(res.data, res.data.price))
+      dispatch(addedToCart(res.data))
     } catch (error) {
       // TODO: let customer know that the error has occured
       console.log(error)
@@ -96,7 +95,7 @@ const cartReducer = (state = initialState, action) => {
     case ADDED_TO_CART:
       return {
         ...state,
-        cart: [...state, action.id]
+        cart: [...state.cart, action.id]
       }
     case MADE_PURCHASE:
       return initialState

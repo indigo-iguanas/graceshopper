@@ -32,7 +32,6 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/', async (req, res, next) => {
-  console.log('in cart put api: ', req.body)
   try {
     if (
       !req.session.passport ||
