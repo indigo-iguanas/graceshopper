@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {LineItem, Order, Emotion} = require('../db/models/index.js')
+const sequelize = require('../db')
 module.exports = router
 
 router.get('/:id', async (req, res, next) => {
@@ -40,21 +41,27 @@ router.put('/', async (req, res, next) => {
     ) {
       res.status(401).end()
     } else {
-      // TODO - create order and update line items should be in a transaction
-      const order = await Order.create({userId: req.body.userId.id})
-      const [count, _rows] = await LineItem.update(
-        {
-          date: new Date(),
-          status: 'purchased',
-          orderId: order.id
-        },
-        {
-          where: {
-            userId: req.body.userId.id,
-            status: 'inCart'
-          }
-        }
-      )
+      const count = await sequelize.transaction(async t => {
+        const order = Order.create(
+          {userId: req.body.userId.id},
+          {transaction: t}
+        )
+        const [count, _rows] = await LineItem.update(
+          {
+            date: new Date(),
+            status: 'purchased',
+            orderId: order.id
+          },
+          {
+            where: {
+              userId: req.body.userId.id,
+              status: 'inCart'
+            }
+          },
+          {transaction: t}
+        )
+        return count
+      })
       if (count === 0) {
         res.status(412).json('No items in cart')
       } else {
