@@ -39,32 +39,59 @@ class Cart extends Component {
   render() {
     const cart = this.props.cart
     return cart.length > 0 ? (
-      <div>
-        <div className="catalog">
-          {cart.filter(el => el.status === 'inCart').map(el => {
-            return (
-              <div key={el.id}>
-                <h2>{el.emotion.name}</h2>
-                <img
-                  width="100"
-                  src={el.emotion.imageUrl}
-                  alt={el.emotion.name}
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    this.deleteBtnClickHandler(this.props.user.id, el.id)
-                  }}
-                >
-                  I DON'T WANT IT!
-                </button>
-              </div>
-            )
-          })}
-        </div>
-        <button type="button" onClick={this.purchaseCart}>
-          Purchase
-        </button>
+      <div className="tblcontainer">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>
+                <abbr title="Name">Item</abbr>
+              </th>
+              <th>
+                <abbr title="Image">Image</abbr>
+              </th>
+              <th>
+                <abbr title="Image">Price</abbr>
+              </th>
+              <th>
+                <abbr title="Remove">Remove From Cart</abbr>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.filter(el => el.status === 'inCart').map(el => {
+              return (
+                <tr key={el.id}>
+                  <td>{el.emotion.name}</td>
+                  <td>
+                    <img
+                      width="100"
+                      src={el.emotion.imageUrl}
+                      alt={el.emotion.name}
+                    />
+                  </td>
+                  <td>This item is so expensive you don't even know!</td>
+                  <td>
+                    <a
+                      className="delete is-large"
+                      onClick={() => {
+                        this.deleteBtnClickHandler(this.props.user.id, el.id)
+                      }}
+                    >
+                      delete item
+                    </a>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+          <button
+            className="button is-dark"
+            type="button"
+            onClick={this.purchaseCart}
+          >
+            Purchase
+          </button>
+        </table>
       </div>
     ) : (
       <h1>No Orders In Your Cart Currently!</h1>
