@@ -40,9 +40,6 @@ class Cart extends Component {
     const cart = this.props.cart
     return cart.length > 0 ? (
       <div>
-        <button type="button" onClick={this.purchaseCart}>
-          Purchase
-        </button>
         <div className="catalog">
           {cart.filter(el => el.status === 'inCart').map(el => {
             return (
@@ -65,6 +62,9 @@ class Cart extends Component {
             )
           })}
         </div>
+        <button type="button" onClick={this.purchaseCart}>
+          Purchase
+        </button>
       </div>
     ) : (
       <h1>No Orders In Your Cart Currently!</h1>

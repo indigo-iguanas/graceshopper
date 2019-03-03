@@ -26,11 +26,20 @@ form div {
 }
 
 nav {
-  background: #00c967;
-  text-align: center;
+  background: #7af1b8;
   color: white;
   border-bottom: 5px solid #282d3c;
   font-weight: bold;
+}
+
+.title {
+  padding: auto;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
 }
 .catalog {
   display: flex;
@@ -43,4 +52,8 @@ nav {
   justify-content: space-evenly;
   grid-template-columns: repeat(3, 1fr);
   display: grid;
+}
+
+.card {
+  margin: 10px 10px 10px 10px;
 }
