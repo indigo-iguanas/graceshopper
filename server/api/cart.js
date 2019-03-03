@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
-userCheck = (session, currentUser) => {
+const userCheck = (session, currentUser) => {
   if (currentUser.hasOwnProperty('userId')) {
     if (
       !session ||
