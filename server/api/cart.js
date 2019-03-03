@@ -2,26 +2,39 @@ const router = require('express').Router()
 const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
-userCheck = (session, userBody) => {
-  if (
-    !session ||
-    !session.hasOwnProperty('user') ||
-    userBody.userId.id !== session.user
-  )
-    return false
-  else return true
+userCheck = (session, currentUser) => {
+  if (currentUser.hasOwnProperty('userId')) {
+    if (
+      !session ||
+      !session.hasOwnProperty('user') ||
+      currentUser.userId.id !== session.user
+    )
+      return false
+    else return true
+  } else if (
+      !session ||
+      !session.hasOwnProperty('user') ||
+      currentUser !== session.user
+    )
+      return false
+    else return true
 }
 router.get('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-    const cartItems = await LineItem.findAll({
-      where: {
-        userId,
-        status: 'inCart'
-      },
-      include: [{model: Emotion}]
-    })
-    res.json(cartItems)
+
+    if (!userCheck(req.session.passport, userId)) {
+      res.status(401).end()
+    } else {
+      const cartItems = await LineItem.findAll({
+        where: {
+          userId,
+          status: 'inCart'
+        },
+        include: [{model: Emotion}]
+      })
+      res.json(cartItems)
+    }
   } catch (err) {
     next(err)
   }
@@ -75,7 +88,7 @@ router.delete('/:id/:lineItemId', async (req, res, next) => {
   try {
     const userId = Number(req.params.id)
     const lineItemId = Number(req.params.lineItemId)
-    if (!userCheck(req.session.passport, req.body)) {
+    if (!userCheck(req.session.passport, userId)) {
       res.status(401).end()
     } else {
       await LineItem.destroy({
