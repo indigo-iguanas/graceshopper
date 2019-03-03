@@ -18,7 +18,8 @@ describe('All emotion routes', () => {
 
     beforeEach(() => {
       return Emotion.create({
-        name: testEmotion
+        name: testEmotion,
+        price: 1
       })
     })
 
@@ -30,6 +31,7 @@ describe('All emotion routes', () => {
       expect(res.body).to.be.an('array')
       expect(res.body[0].name).to.be.equal(testEmotion)
       expect(res.body[0].imageUrl).to.be.equal(imageUrl)
+      expect(res.body[0].price).to.be.equal('1')
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')
