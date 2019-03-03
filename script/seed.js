@@ -51,7 +51,7 @@ async function seed() {
     }),
     Emotion.create({
       name: 'aggravation',
-      price: 150
+      price: 1500
     })
   ])
 
