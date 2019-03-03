@@ -12,20 +12,18 @@ userCheck = (session, currentUser) => {
       return false
     else return true
   } else if (
-      !session ||
-      !session.hasOwnProperty('user') ||
-      currentUser !== session.user
-    )
-      return false
-    else return true
+    !session ||
+    !session.hasOwnProperty('user') ||
+    currentUser !== session.user
+  )
+    return false
+  else return true
 }
+
 router.get('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-
     if (!userCheck(req.session.passport, userId)) {
-      res.status(401).end()
-    } else {
       const cartItems = await LineItem.findAll({
         where: {
           userId,
@@ -34,6 +32,8 @@ router.get('/:id', async (req, res, next) => {
         include: [{model: Emotion}]
       })
       res.json(cartItems)
+    } else {
+      res.status(401).end()
     }
   } catch (err) {
     next(err)
