@@ -16,37 +16,55 @@ async function seed() {
     Emotion.create({
       name: 'happiness',
       imageUrl:
-        'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/smiling-face.png'
+        'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/smiling-face.png',
+      price: 1.0
     }),
     Emotion.create({
       name: 'sadness',
       imageUrl:
-        'https://img.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2015/06/sleepy-face.png'
+        'https://img.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2015/06/sleepy-face.png',
+      price: 4.0
     }),
     Emotion.create({
       name: 'ennui',
       imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
+      price: 1.0
     }),
     Emotion.create({
       name: 'waxing wroth',
       imageUrl:
-        'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/pouting-face.png'
+        'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/pouting-face.png',
+      price: 1.0
     }),
     Emotion.create({
       name: 'joy',
       imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
+      price: 1
     }),
     Emotion.create({
       name: 'purring',
       imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
+      price: 1.0
     }),
-    Emotion.create({name: 'aggravation'})
+    Emotion.create({
+      name: 'aggravation',
+      price: 1.0
+    })
   ])
 
-  const orders = await Promise.all([Order.create({userId: users[1].id})])
+  const orders = await Promise.all([
+    Order.create({
+      userId: users[0].id,
+      subTotal: emotions[0].price
+    }),
+    Order.create({
+      userId: users[1].id,
+      subTotal: Number(emotions[0].price) + Number(emotions[1].price)
+    })
+  ])
 
   const now = new Date()
 
