@@ -44,10 +44,10 @@ class Cart extends Component {
           <thead>
             <tr>
               <th>
-                <abbr title="Name">Item</abbr>
+                <abbr title="Name">Name</abbr>
               </th>
               <th>
-                <abbr title="Image">Image</abbr>
+                <abbr title="Item Image">Item</abbr>
               </th>
               <th>
                 <abbr title="Image">Price</abbr>
