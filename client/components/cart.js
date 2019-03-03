@@ -45,9 +45,10 @@ class Cart extends Component {
 
   render() {
     const cart = this.props.cart.cart
-    const parsedPrice = parseFloat(this.props.cart.subTotal).toPrecision(
-      this.props.cart.subTotal.toString().length - 1 || 1
-    )
+    const parsedPrice =
+      parseFloat(this.props.cart.subTotal).toPrecision(
+        this.props.cart.subTotal.toString().length - 0 || 3
+      ) || this.props.cart.subTotal
     return cart.length > 0 ? (
       <div>
         <h3>{`Total: $${parsedPrice}`}</h3>
