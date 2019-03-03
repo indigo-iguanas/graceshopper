@@ -43,6 +43,7 @@ export const makePurchase = id => {
       const res = await axios.put(`/api/cart`, {userId: id})
       dispatch(madePurchase())
       alert(`Order complete. Order id: ${res.data.orderId}.`)
+      
     } catch (error) {
       alert('Error. Purchase not made.')
       console.log(error)
