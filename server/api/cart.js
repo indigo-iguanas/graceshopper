@@ -41,7 +41,10 @@ router.put('/', async (req, res, next) => {
       res.status(401).end()
     } else {
       // TODO - create order and update line items should be in a transaction
-      const order = await Order.create({userId: req.body.userId.id})
+      const order = await Order.create({
+        userId: req.body.userId.id,
+        subTotal: req.body.subTotal
+      })
       const [count, _rows] = await LineItem.update(
         {
           date: new Date(),

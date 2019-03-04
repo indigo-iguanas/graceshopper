@@ -9,6 +9,14 @@ const Emotion = db.define('emotion', {
     type: Sequelize.STRING,
     defaultValue:
       'http://sg-fs.com/wp-content/uploads/2017/08/user-placeholder.png'
+  },
+  price: {
+    type: Sequelize.DECIMAL,
+    allowNull: false,
+    validate: {
+      isDecimal: true,
+      min: 0
+    }
   }
 })
 

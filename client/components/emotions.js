@@ -22,7 +22,7 @@ class Emotions extends Component {
       this.props.loggedInUser.hasOwnProperty('id')
     ) {
       const emotionId = +evt.target.name // hack, name is the id
-      const item = this.props.cart.find(i => i.emotionId === emotionId)
+      const item = this.props.cart.cart.find(i => i.emotionId === emotionId)
       if (item === undefined) {
         this.props.addEmotionToCart(emotionId)
       } else {

@@ -11,6 +11,7 @@ import {withRouter} from 'react-router-dom'
 class Cart extends Component {
   constructor(props) {
     super(props)
+
     this.purchaseCart = this.purchaseCart.bind(this)
     this.deleteBtnClickHandler = this.deleteBtnClickHandler.bind(this)
   }
@@ -23,7 +24,12 @@ class Cart extends Component {
 
   purchaseCart() {
     try {
-      this.props.makePurchase(this.props.user)
+      this.props.makePurchase(
+        this.props.user,
+        parseFloat(this.props.cart.subTotal).toPrecision(
+          this.props.cart.subTotal.toString().length || 1
+        )
+      )
       // TODO - how to show this to customer?
       console.log('CART: purchase succeeded, order id ?')
     } catch (err) {
@@ -34,12 +40,18 @@ class Cart extends Component {
 
   deleteBtnClickHandler(id, lineItemId) {
     this.props.deleteLineItemFromStore(id, lineItemId)
+    this.props.fetchCartFromStore(id)
   }
 
   render() {
-    const cart = this.props.cart
+    const cart = this.props.cart.cart
+    const parsedPrice =
+      parseFloat(this.props.cart.subTotal).toPrecision(
+        this.props.cart.subTotal.toString().length - 0 || 3
+      ) || this.props.cart.subTotal
     return cart.length > 0 ? (
       <div className="tblcontainer">
+        <h3>{`Total: $${parsedPrice}`}</h3>
         <table className="table">
           <thead>
             <tr>
@@ -50,7 +62,7 @@ class Cart extends Component {
                 <abbr title="Item Image">Item</abbr>
               </th>
               <th>
-                <abbr title="Image">Price</abbr>
+                <abbr title="Price">Price</abbr>
               </th>
               <th>
                 <abbr title="Remove">Remove From Cart</abbr>
@@ -69,7 +81,7 @@ class Cart extends Component {
                       alt={el.emotion.name}
                     />
                   </td>
-                  <td>This item is so expensive you don't even know!</td>
+                  <td>{`$${el.emotion.price}`}</td>
                   <td>
                     <a
                       className="delete is-large"
@@ -107,7 +119,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchCartFromStore: id => dispatch(getCartFromServer(id)),
   fetchUserFromStore: () => dispatch(me()),
-  makePurchase: id => dispatch(makePurchase(id)),
+  makePurchase: (id, subTotal) => dispatch(makePurchase(id, subTotal)),
   deleteLineItemFromStore: (id, lineItemId) =>
     dispatch(deleteLineItemFromServer(id, lineItemId))
 })

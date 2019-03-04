@@ -10,6 +10,9 @@ const emotionCard = ({clickHandler, emotion}) => {
       </div>
       <div className="card-content">
         <p className="title is-4">{emotion.name}</p>
+        <em>
+          <p>{`$${emotion.price.slice(0, emotion.price.toString().length)}`}</p>
+        </em>
         <button
           className="button is-success"
           type="button"
