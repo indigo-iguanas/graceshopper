@@ -1,10 +1,15 @@
 import axios from 'axios'
 
 //Action type
+const CART_WAS_CLEARED = 'CART_WAS_CLEARED'
 const GET_CART = 'GET_CART'
 const MADE_PURCHASE = 'MADE_PURCHASE'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const DELETE_LINE_ITEM = 'DELETE_LINE_ITEM'
+
+const cartWasCleared = () => ({
+  type: CART_WAS_CLEARED
+})
 
 const getCart = cart => ({
   type: GET_CART,
@@ -31,6 +36,7 @@ export const getCartFromServer = id => {
       const {data} = await axios.get(`/api/cart/${id}`)
       dispatch(getCart(data))
     } catch (error) {
+      dispatch(clearCart())
       alert('Error getting cart.')
       console.log(error)
     }
@@ -101,6 +107,8 @@ const cartReducer = (state = initialState, action) => {
         cart: [...state.cart, action.id]
       }
     case MADE_PURCHASE:
+      return initialState
+    case CART_WAS_CLEARED: // this is logically distinct from MADE_PURCHASE
       return initialState
     default:
       return state
