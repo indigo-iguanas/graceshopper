@@ -61,7 +61,7 @@ router.put('/', async (req, res, next) => {
       if (count === 0) {
         res.status(412).json('No items in cart')
       } else {
-        res.status(204).end()
+        res.status(200).json({orderId: order.id})
       }
     }
   } catch (err) {

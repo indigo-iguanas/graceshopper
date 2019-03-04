@@ -40,9 +40,11 @@ export const getCartFromServer = id => {
 export const makePurchase = (id, subTotal) => {
   return async dispatch => {
     try {
-      const {orderId} = await axios.put(`/api/cart`, {userId: id, subTotal})
+      const res = await axios.put(`/api/cart`, {userId: id, subTotal})
+      
       dispatch(madePurchase())
-      alert(`Order complete. Order id: ${orderId}.`)
+      alert(`Order complete. Order id: ${res.data.orderId}.`)
+      
     } catch (error) {
       alert('Error. Purchase not made.')
       console.log(error)

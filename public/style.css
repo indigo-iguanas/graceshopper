@@ -1,9 +1,14 @@
+html {
+  background: white;
+  height: 100%;
+}
+
 body {
   font-family: sans-serif;
 }
 
 a {
-  text-decoration: none;
+  color: white;
 }
 
 label {
@@ -20,9 +25,41 @@ form div {
   display: inline-block;
 }
 
+nav {
+  background: #7af1b8;
+  color: white;
+  border-bottom: 5px solid #282d3c;
+  font-weight: bold;
+}
+
+.title {
+  padding: auto;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
 .catalog {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.container {
+  justify-content: space-evenly;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+
+.tblcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  margin: 10px 10px 10px 10px;
 }
