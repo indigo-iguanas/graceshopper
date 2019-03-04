@@ -25,7 +25,6 @@ class Cart extends Component {
 
   purchaseCart() {
     try {
-      console.log('in purchasecart front end ', this.props.cart.subTotal)
       this.props.makePurchase(this.props.user, this.props.cart.subTotal)
       // TODO - how to show this to customer?
       console.log('CART: purchase succeeded, order id ?')
