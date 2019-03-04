@@ -40,7 +40,6 @@ export const getCartFromServer = id => {
 export const makePurchase = (id, subTotal) => {
   return async dispatch => {
     try {
-      console.log('Dinero amoutn in purchase thunk: ', Number(subTotal))
       const res = await axios.put(`/api/cart`, {
         userId: id,
         subTotal: subTotal
