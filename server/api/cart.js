@@ -3,7 +3,6 @@ const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
 const userCheck = (session, currentUser) => {
-  // TODO console.log('userCheck', currentUser, session.user, session)
   const user = currentUser.hasOwnProperty('userId')
     ? currentUser.userId.id
     : currentUser
@@ -11,7 +10,6 @@ const userCheck = (session, currentUser) => {
 }
 
 router.get('/:id', async (req, res, next) => {
-  // TODO console.log('GET :id', req.session)
   try {
     const userId = req.params.id
     if (!userCheck(req.session.passport, userId)) {
@@ -53,32 +51,31 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/', async (req, res, next) => {
-  // TODO console.log('put /', req.body)
   try {
-    /*if (!userCheck(req.session.passport, req.body.userId)) {
+    if (!userCheck(req.session.passport, req.body)) {
       res.status(401).end()
-    } else {*/
-    // TODO - create order and update line items should be in a transaction
-    const order = await Order.create({userId: req.body.userId.id})
-    const [count, _rows] = await LineItem.update(
-      {
-        date: new Date(),
-        status: 'purchased',
-        orderId: order.id
-      },
-      {
-        where: {
-          userId: req.body.userId.id,
-          status: 'inCart'
-        }
-      }
-    )
-    if (count === 0) {
-      res.status(412).json('No items in cart')
     } else {
-      res.status(200).json({orderId: order.id})
+      // TODO - create order and update line items should be in a transaction
+      const order = await Order.create({userId: req.body.userId.id})
+      const [count, _rows] = await LineItem.update(
+        {
+          date: new Date(),
+          status: 'purchased',
+          orderId: order.id
+        },
+        {
+          where: {
+            userId: req.body.userId.id,
+            status: 'inCart'
+          }
+        }
+      )
+      if (count === 0) {
+        res.status(412).json('No items in cart')
+      } else {
+        res.status(200).json({orderId: order.id})
+      }
     }
-    /*}*/
   } catch (err) {
     next(err)
   }
