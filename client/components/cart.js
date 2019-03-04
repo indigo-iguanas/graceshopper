@@ -51,7 +51,7 @@ class Cart extends Component {
       ) || this.props.cart.subTotal
     return cart.length > 0 ? (
       <div className="tblcontainer">
-        <table className="table">
+        <table className="table is-hoverable is-striped">
           <thead>
             <tr>
               <th>

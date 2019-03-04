@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models/index.js')
+const {Order, LineItem, Emotion} = require('../db/models/index.js')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -14,5 +14,21 @@ router.get('/', async (req, res, next) => {
     }
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/purchasedItems', async (req, res, next) => {
+  try {
+    if (!req.session.passport || !req.session.passport.hasOwnProperty('user')) {
+      res.status(401).end()
+    } else {
+      const UserPurchaseItems = await LineItem.findAll({
+        where: {userId: req.session.passport.user, status: 'purchased'},
+        include: {model: Emotion}
+      })
+      res.json(UserPurchaseItems)
+    }
+  } catch (error) {
+    next(error)
   }
 })
