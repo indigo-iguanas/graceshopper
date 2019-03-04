@@ -17,41 +17,41 @@ async function seed() {
       name: 'happiness',
       imageUrl:
         'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/smiling-face.png',
-      price: 1.0
+      price: 100
     }),
     Emotion.create({
       name: 'sadness',
       imageUrl:
         'https://img.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2015/06/sleepy-face.png',
-      price: 1.4
+      price: 140
     }),
     Emotion.create({
       name: 'ennui',
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
-      price: 1.5
+      price: 150
     }),
     Emotion.create({
       name: 'waxing wroth',
       imageUrl:
         'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/pouting-face.png',
-      price: 1.65
+      price: 165
     }),
     Emotion.create({
       name: 'joy',
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
-      price: 5
+      price: 500
     }),
     Emotion.create({
       name: 'purring',
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
-      price: 10
+      price: 10000
     }),
     Emotion.create({
       name: 'aggravation',
-      price: 1500
+      price: 150000
     })
   ])
 

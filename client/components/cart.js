@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Dinero from 'dinero.js'
+import {withRouter} from 'react-router-dom'
 import {
   getCartFromServer,
   makePurchase,
   me,
   deleteLineItemFromServer
 } from '../store'
-import {withRouter} from 'react-router-dom'
 
 class Cart extends Component {
   constructor(props) {
@@ -24,12 +25,8 @@ class Cart extends Component {
 
   purchaseCart() {
     try {
-      this.props.makePurchase(
-        this.props.user,
-        parseFloat(this.props.cart.subTotal).toPrecision(
-          this.props.cart.subTotal.toString().length || 1
-        )
-      )
+      console.log('in purchasecart front end ', this.props.cart.subTotal)
+      this.props.makePurchase(this.props.user, this.props.cart.subTotal)
       // TODO - how to show this to customer?
       console.log('CART: purchase succeeded, order id ?')
     } catch (err) {
@@ -45,13 +42,13 @@ class Cart extends Component {
 
   render() {
     const cart = this.props.cart.cart
-    const parsedPrice =
-      parseFloat(this.props.cart.subTotal).toPrecision(
-        this.props.cart.subTotal.toString().length - 0 || 3
-      ) || this.props.cart.subTotal
+    const cartSubtotal = Dinero({
+      amount: this.props.cart.subTotal,
+      currency: 'USD'
+    }).toFormat('$0,0.00')
     return cart.length > 0 ? (
       <div className="tblcontainer">
-        <h3>{`Total: $${parsedPrice}`}</h3>
+        <h3>{`Total: ${cartSubtotal}`}</h3>
         <table className="table">
           <thead>
             <tr>
@@ -71,6 +68,10 @@ class Cart extends Component {
           </thead>
           <tbody>
             {cart.filter(el => el.status === 'inCart').map(el => {
+              const price = Dinero({
+                amount: Number(el.emotion.price),
+                currency: 'USD'
+              }).toFormat('$0,0.00')
               return (
                 <tr key={el.id}>
                   <td>{el.emotion.name}</td>
@@ -81,7 +82,7 @@ class Cart extends Component {
                       alt={el.emotion.name}
                     />
                   </td>
-                  <td>{`$${el.emotion.price}`}</td>
+                  <td>{`${price}`}</td>
                   <td>
                     <a
                       className="delete is-large"
