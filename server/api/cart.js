@@ -2,17 +2,39 @@ const router = require('express').Router()
 const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
+const userCheck = (session, currentUser) => {
+  if (currentUser.hasOwnProperty('userId')) {
+    if (
+      !session ||
+      !session.hasOwnProperty('user') ||
+      currentUser.userId.id !== session.user
+    )
+      return false
+    else return true
+  } else if (
+    !session ||
+    !session.hasOwnProperty('user') ||
+    currentUser !== session.user
+  )
+    return false
+  else return true
+}
+
 router.get('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-    const cartItems = await LineItem.findAll({
-      where: {
-        userId,
-        status: 'inCart'
-      },
-      include: [{model: Emotion}]
-    })
-    res.json(cartItems)
+    if (!userCheck(req.session.passport, userId)) {
+      const cartItems = await LineItem.findAll({
+        where: {
+          userId,
+          status: 'inCart'
+        },
+        include: [{model: Emotion}]
+      })
+      res.json(cartItems)
+    } else {
+      res.status(401).end()
+    }
   } catch (err) {
     next(err)
   }
@@ -33,11 +55,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    if (
-      !req.session.passport ||
-      !req.session.passport.hasOwnProperty('user') ||
-      req.body.userId.id !== req.session.passport.user
-    ) {
+    if (!userCheck(req.session.passport, req.body)) {
       res.status(401).end()
     } else {
       // TODO - create order and update line items should be in a transaction
@@ -70,11 +88,7 @@ router.delete('/:id/:lineItemId', async (req, res, next) => {
   try {
     const userId = Number(req.params.id)
     const lineItemId = Number(req.params.lineItemId)
-    if (
-      !req.session.passport ||
-      !req.session.passport.hasOwnProperty('user') ||
-      userId !== req.session.passport.user
-    ) {
+    if (!userCheck(req.session.passport, userId)) {
       res.status(401).end()
     } else {
       await LineItem.destroy({
