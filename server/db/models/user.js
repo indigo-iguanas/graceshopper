@@ -47,18 +47,28 @@ module.exports = User
 User.prototype.correctPassword = function(candidatePwd) {
   // Any password should be considered INcorrect for a guest...
   return (
-    !this.isGuest &&
+    !this.isGuest() &&
     User.encryptPassword(candidatePwd, this.salt()) === this.password()
   )
 }
 
-User.prototype.convertToRegisteredUser = function() {
-  if (!this.isGuest) {
+User.prototype.convertToRegisteredUser = function(password) {
+  if (!this.isGuest()) {
     return false
   } else {
     this.isGuest = false
+    this.password = password
     // eslint-disable-next-line no-use-before-define
     setSaltAndPassword(this)
+    return true
+  }
+}
+
+User.prototype.getDisplayName = function() {
+  if (this.isGuest()) {
+    return 'Guest'
+  } else {
+    return this.email
   }
 }
 
@@ -82,7 +92,7 @@ User.encryptPassword = function(plainText, salt) {
  */
 const setSaltAndPassword = user => {
   // guests don't get passwords
-  if (!user.isGuest) {
+  if (!user.isGuest()) {
     if (user.changed('password')) {
       user.salt = User.generateSalt()
       user.password = User.encryptPassword(user.password(), user.salt())

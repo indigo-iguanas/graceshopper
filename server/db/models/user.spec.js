@@ -56,5 +56,27 @@ describe('User model', () => {
         expect(guest.correctPassword(guestPassword + 'z')).to.be.equal(false)
       })
     }) // end describe('convertToRegisteredUser')
+
+    describe('getDisplayName', () => {
+      let cody, guest
+
+      beforeEach(async () => {
+        cody = await User.create({
+          email: 'cody@puppybook.com',
+          password: 'bones'
+        })
+        guest = await User.create({
+          isGuest: true
+        })
+      })
+
+      it('returns a display name for a registered user', () => {
+        expect(cody.getDisplayName()).to.be.equal(cody.email)
+      })
+
+      it('returns a display name for a guest', () => {
+        expect(guest.getDisplayName()).to.be.equal('Guest')
+      })
+    }) // end describe('getDisplayName')
   }) // end describe('instanceMethods')
 }) // end describe('User model')
