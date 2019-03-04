@@ -1,5 +1,3 @@
-//Take this out in github
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
@@ -52,35 +50,60 @@ class Cart extends Component {
         this.props.cart.subTotal.toString().length - 0 || 3
       ) || this.props.cart.subTotal
     return cart.length > 0 ? (
-      <div>
+      <div className="tblcontainer">
         <h3>{`Total: $${parsedPrice}`}</h3>
-        <button type="button" onClick={this.purchaseCart}>
-          Purchase
-        </button>
-        <div className="catalog">
-          {cart.filter(el => el.status === 'inCart').map(el => {
-            return (
-              <div key={el.id}>
-                <h2>{el.emotion.name}</h2>
-                <h4>{`$${el.emotion.price}`}</h4>
-                <img
-                  width="100"
-                  src={el.emotion.imageUrl}
-                  alt={el.emotion.name}
-                />
-                <br />
-                <button
-                  type="button"
-                  onClick={() => {
-                    this.deleteBtnClickHandler(this.props.user.id, el.id)
-                  }}
-                >
-                  I DON'T WANT IT!
-                </button>
-              </div>
-            )
-          })}
-        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>
+                <abbr title="Name">Name</abbr>
+              </th>
+              <th>
+                <abbr title="Item Image">Item</abbr>
+              </th>
+              <th>
+                <abbr title="Price">Price</abbr>
+              </th>
+              <th>
+                <abbr title="Remove">Remove From Cart</abbr>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.filter(el => el.status === 'inCart').map(el => {
+              return (
+                <tr key={el.id}>
+                  <td>{el.emotion.name}</td>
+                  <td>
+                    <img
+                      width="100"
+                      src={el.emotion.imageUrl}
+                      alt={el.emotion.name}
+                    />
+                  </td>
+                  <td>{`$${el.emotion.price}`}</td>
+                  <td>
+                    <a
+                      className="delete is-large"
+                      onClick={() => {
+                        this.deleteBtnClickHandler(this.props.user.id, el.id)
+                      }}
+                    >
+                      delete item
+                    </a>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+          <button
+            className="button is-dark"
+            type="button"
+            onClick={this.purchaseCart}
+          >
+            Purchase
+          </button>
+        </table>
       </div>
     ) : (
       <h1>No Orders In Your Cart Currently!</h1>
