@@ -42,7 +42,7 @@ export const makePurchase = (id, subTotal) => {
     try {
       const res = await axios.put(`/api/cart`, {
         userId: id,
-        subTotal: subTotal
+        subTotal
       })
       dispatch(madePurchase())
       alert(`Order complete. Order id: ${res.data.orderId}.`)
