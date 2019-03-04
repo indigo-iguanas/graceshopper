@@ -1,3 +1,5 @@
+//Take this out in github
+
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
