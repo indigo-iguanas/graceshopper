@@ -21,14 +21,16 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/" component={Emotions} />
+        <Route exact path="/" component={Emotions} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            <Route path="/emotions" component={Emotions} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/profile" component={Profile} />
+            <Route exact path="/" component={UserHome} />
+            <Route exact path="/home" component={UserHome} />
+            <Route exact path="/emotions" component={UserHome} />
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/profile" component={Profile} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
