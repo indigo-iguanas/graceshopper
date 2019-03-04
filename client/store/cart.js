@@ -40,7 +40,10 @@ export const getCartFromServer = id => {
 export const makePurchase = (id, subTotal) => {
   return async dispatch => {
     try {
-      const res = await axios.put(`/api/cart`, {userId: id, subTotal})
+      const res = await axios.put(`/api/cart`, {
+        userId: id,
+        subTotal
+      })
       dispatch(madePurchase())
       alert(`Order complete. Order id: ${res.data.orderId}.`)
     } catch (error) {
@@ -106,7 +109,8 @@ const cartReducer = (state = initialState, action) => {
 
 function addUpCart(arrOfObjs) {
   return arrOfObjs.reduce((acc, elem) => {
-    return (acc += Number(elem.emotion.price))
+    acc += Number(elem.emotion.price)
+    return acc
   }, 0)
 }
 

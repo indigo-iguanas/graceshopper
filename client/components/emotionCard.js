@@ -1,6 +1,11 @@
 import React from 'react'
+import Dinero from 'dinero.js'
 
 const emotionCard = ({clickHandler, emotion}) => {
+  const modelPrice = Number(emotion.price)
+  const price = Dinero({amount: modelPrice, currency: 'USD'}).toFormat(
+    '$0,0.00'
+  )
   return (
     <div className="card has-text-centered">
       <div className="image is-75x75">
@@ -11,7 +16,7 @@ const emotionCard = ({clickHandler, emotion}) => {
       <div className="card-content">
         <p className="title is-4">{emotion.name}</p>
         <em>
-          <p>{`$${emotion.price.slice(0, emotion.price.toString().length)}`}</p>
+          <p>{`${price}`}</p>
         </em>
         <button
           className="button is-success"
