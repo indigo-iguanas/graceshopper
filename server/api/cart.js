@@ -41,8 +41,8 @@ router.put('/', async (req, res, next) => {
     ) {
       res.status(401).end()
     } else {
-      const count = await sequelize.transaction(async t => {
-        const order = Order.create(
+      const [count, order] = await sequelize.transaction(async t => {
+        const order = await Order.create(
           {userId: req.body.userId.id},
           {transaction: t}
         )
@@ -60,12 +60,13 @@ router.put('/', async (req, res, next) => {
           },
           {transaction: t}
         )
-        return count
+        return [count, order]
       })
+      console.log('moo', count, order)
       if (count === 0) {
         res.status(412).json('No items in cart')
       } else {
-        res.status(200).json({orderId: order.id})
+        res.status(200).json({orderId: orderId})
       }
     }
   } catch (err) {
