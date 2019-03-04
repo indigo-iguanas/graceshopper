@@ -7,11 +7,11 @@ import {Emotions} from '../components'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {displayName} = props
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>Welcome, {displayName}</h3>
       <Emotions />
     </div>
   )
@@ -22,7 +22,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    displayName: state.user.getDisplayName()
   }
 }
 
@@ -32,5 +32,5 @@ export default connect(mapState)(UserHome)
  * PROP TYPES
  */
 UserHome.propTypes = {
-  email: PropTypes.string
+  displayName: PropTypes.string
 }
