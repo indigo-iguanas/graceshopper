@@ -51,7 +51,6 @@ class Cart extends Component {
       ) || this.props.cart.subTotal
     return cart.length > 0 ? (
       <div className="tblcontainer">
-        <h3>{`Total: $${parsedPrice}`}</h3>
         <table className="table">
           <thead>
             <tr>
@@ -84,7 +83,7 @@ class Cart extends Component {
                   <td>{`$${el.emotion.price}`}</td>
                   <td>
                     <a
-                      className="delete is-large"
+                      className="delete is-large is-centered"
                       onClick={() => {
                         this.deleteBtnClickHandler(this.props.user.id, el.id)
                       }}
@@ -96,13 +95,22 @@ class Cart extends Component {
               )
             })}
           </tbody>
-          <button
-            className="button is-dark"
-            type="button"
-            onClick={this.purchaseCart}
-          >
-            Purchase
-          </button>
+          <tfoot>
+            <tr>
+              <td>Total:</td>
+              <td />
+              <td>{`$${parsedPrice}`}</td>
+              <td>
+                <button
+                  className="button is-dark"
+                  type="button"
+                  onClick={this.purchaseCart}
+                >
+                  Purchase
+                </button>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     ) : (
