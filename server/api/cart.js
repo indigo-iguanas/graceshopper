@@ -3,13 +3,15 @@ const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
 const userCheck = (session, currentUser) => {
+  console.log('userCheck', currentUser, session.user, session)
   const user = currentUser.hasOwnProperty('userId')
     ? currentUser.userId.id
     : currentUser
-  return session && session.hasOwnProperty('user') && user === session.user
+  return session && session.hasOwnProperty('user') && +user === +session.user
 }
 
 router.get('/:id', async (req, res, next) => {
+  console.log('GET :id', req.session)
   try {
     const userId = req.params.id
     if (!userCheck(req.session.passport, userId)) {
@@ -31,20 +33,29 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const userId = req.session.passport.user
-    const emotionId = req.body.emotionId
-    const lineItem = await LineItem.create({emotionId, userId})
-    const emotion = await lineItem.getEmotion()
-    lineItem.setDataValue('emotion', emotion)
-    res.json(lineItem)
+    if (
+      !req.session ||
+      !req.session.passport ||
+      !req.session.passport.hasOwnProperty('user')
+    ) {
+      res.status(401).end()
+    } else {
+      const userId = req.session.passport.user
+      const emotionId = req.body.emotionId
+      const lineItem = await LineItem.create({emotionId, userId})
+      const emotion = await lineItem.getEmotion()
+      lineItem.setDataValue('emotion', emotion)
+      res.json(lineItem)
+    }
   } catch (err) {
     next(err)
   }
 })
 
 router.put('/', async (req, res, next) => {
+  console.log('put /', req.body)
   try {
-    if (!userCheck(req.session.passport, req.body)) {
+    if (!userCheck(req.session.passport, req.body.userId)) {
       res.status(401).end()
     } else {
       // TODO - create order and update line items should be in a transaction
