@@ -3,27 +3,18 @@ const {LineItem, Order, Emotion} = require('../db/models/index.js')
 module.exports = router
 
 const userCheck = (session, currentUser) => {
-  if (currentUser.hasOwnProperty('userId')) {
-    if (
-      !session ||
-      !session.hasOwnProperty('user') ||
-      currentUser.userId.id !== session.user
-    )
-      return false
-    else return true
-  } else if (
-    !session ||
-    !session.hasOwnProperty('user') ||
-    currentUser !== session.user
-  )
-    return false
-  else return true
+  const user = currentUser.hasOwnProperty('userId')
+    ? currentUser.userId.id
+    : currentUser
+  return session && session.hasOwnProperty('user') && user === session.user
 }
 
 router.get('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
     if (!userCheck(req.session.passport, userId)) {
+      res.status(401).end()
+    } else {
       const cartItems = await LineItem.findAll({
         where: {
           userId,
@@ -32,8 +23,6 @@ router.get('/:id', async (req, res, next) => {
         include: [{model: Emotion}]
       })
       res.json(cartItems)
-    } else {
-      res.status(401).end()
     }
   } catch (err) {
     next(err)
