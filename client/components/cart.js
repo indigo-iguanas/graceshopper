@@ -24,13 +24,19 @@ class Cart extends Component {
   }
 
   purchaseCart() {
-    try {
-      this.props.makePurchase(this.props.user, this.props.cart.subTotal)
-      // TODO - how to show this to customer?
-      console.log('CART: purchase succeeded, order id ?')
-    } catch (err) {
-      // TODO - how to show this to customer?
-      console.log('CART: purchase failed')
+    if (this.props.isGuest) {
+      alert(
+        'Please sign up to purchase your cart. It is painless, really! And your cart will be waiting here for you.'
+      )
+    } else {
+      try {
+        this.props.makePurchase(this.props.user, this.props.cart.subTotal)
+        // TODO - how to show this to customer?
+        console.log('CART: purchase succeeded, order id ?')
+      } catch (err) {
+        // TODO - how to show this to customer?
+        console.log('CART: purchase failed')
+      }
     }
   }
 
@@ -121,7 +127,9 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  user: state.user
+  user: state.user,
+  isRegisteredUser: !!state.user.id && !state.user.isGuest,
+  isGuest: !!state.user.id && state.user.isGuest
 })
 
 const mapDispatchToProps = dispatch => ({
