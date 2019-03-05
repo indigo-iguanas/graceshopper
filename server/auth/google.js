@@ -42,10 +42,6 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
         .catch(done)
     }
   )
-  router.use('/', (req, res, next) => {
-    console.log('something new')
-    next()
-  })
 
   passport.use(strategy)
 
