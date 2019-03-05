@@ -32,9 +32,6 @@ const AuthForm = props => {
       <a className="button is-dark" href="/auth/google">
         {displayName} with Google
       </a>
-      <a className="button is-dark" href="/auth/github">
-        {displayName} with Github
-      </a>
     </div>
   )
 }
