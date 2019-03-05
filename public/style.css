@@ -69,3 +69,25 @@ nav {
   align-items: center;
   justify-content: center;
 }
+
+.navbar-start {
+  padding-left: 100px;
+}
+
+.navbar-end {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo {
+  margin: 10px 10px 10px 10px;
+}
+
+#logo-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 10px 10px 10px;
+  color: #282d3c;
+}
