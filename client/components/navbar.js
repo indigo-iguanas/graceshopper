@@ -4,14 +4,25 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isRegisteredUser, isGuest}) => (
+const Navbar = ({handleClick, isRegisteredUser, isGuest, user}) => (
   <div>
     <nav className="columns" className="header">
-      <div className="column">
-        <h1 className="title is-2">EMOTIONS &rsquo;Я&rsquo; US</h1>
+      <div className="column" className="navbar-start">
+        <img
+          src="https://seeklogo.com/images/B/be-cool-logo-D08F2BAE07-seeklogo.com.png"
+          className="image is-64x64"
+          id="logo"
+        />
+        <h1 className="title is-2" id="logo-title">
+          EMOTIONS &rsquo;Я&rsquo; US
+        </h1>
       </div>
       {isRegisteredUser ? (
-        <div className="column">
+        <div className="column" className="navbar-end">
+          <div>
+            Welcome{' '}
+            {user.email.toUpperCase().slice(0, user.email.lastIndexOf('@'))}!
+          </div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">All Emotions</Link>
           <Link to="/profile">Profile</Link>
@@ -39,8 +50,9 @@ const Navbar = ({handleClick, isRegisteredUser, isGuest}) => (
           </Link>
         </div>
       ) : (
-        <div>
+        <div className="column" className="navbar-end">
           {/* The navbar will show these links before you log in */}
+          <div>Welcome guest!</div>
           <Link to="/">All Emotions</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
@@ -57,7 +69,8 @@ const Navbar = ({handleClick, isRegisteredUser, isGuest}) => (
 const mapState = state => {
   return {
     isRegisteredUser: !!state.user.id && !state.user.isGuest,
-    isGuest: !!state.user.id && state.user.isGuest
+    isGuest: !!state.user.id && state.user.isGuest,
+    user: state.user
   }
 }
 

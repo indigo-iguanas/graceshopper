@@ -40,6 +40,8 @@
     "axios": "^0.15.3",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^4.1.0",
+    "dinero": "^1.0.1",
+    "dinero.js": "^1.5.0",
     "express": "^4.16.3",
     "express-session": "^1.15.1",
     "heroku": "^7.22.1",
