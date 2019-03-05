@@ -7,11 +7,8 @@ import {Emotions} from '../components'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
-
   return (
     <div>
-      <h3>Welcome, {email}</h3>
       <Emotions />
     </div>
   )
