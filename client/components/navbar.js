@@ -37,7 +37,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
           </Link>
         </div>
       ) : (
-        <div>
+        <div className="column" className="navbar-end">
           {/* The navbar will show these links before you log in */}
           <div>Welcome guest!</div>
           <Link to="/">All Emotions</Link>
