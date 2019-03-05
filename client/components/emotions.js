@@ -16,20 +16,14 @@ class Emotions extends Component {
   }
 
   clickHandler(evt) {
-    //evt.target.name is the emotionId
-    if (
-      this.props.loggedInUser &&
-      this.props.loggedInUser.hasOwnProperty('id')
-    ) {
-      const emotionId = +evt.target.name // hack, name is the id
-      const item = this.props.cart.cart.find(i => i.emotionId === emotionId)
-      if (item === undefined) {
-        this.props.addEmotionToCart(emotionId)
-      } else {
-        alert(`${item.emotion.name} is already in your cart.`)
-      }
+    // a guest user will be signed up and logged in if one doesn't already exist on the session
+    // hack: evt.target.name is the emotionId
+    const emotionId = +evt.target.name
+    const item = this.props.cart.cart.find(i => i.emotionId === emotionId)
+    if (item === undefined) {
+      this.props.addEmotionToCart(emotionId)
     } else {
-      alert('Please log in first.')
+      alert(`${item.emotion.name} is already in your cart.`)
     }
   }
 

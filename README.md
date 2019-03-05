@@ -33,13 +33,15 @@ Environment variables (either in a local file - do not push to github - or Herok
 
 See TODO comments.
 
-[ ] getDisplayName() is not defined in user-home - is state.user not a User at this point? (just a js obj?)
-
-[ ] Guest user adds to cart, then same browser, someone logs in, and logs out - the guest user is gone, can't get the guest cart back.
-
-[ ] Disable Logout and profile for guests
+[ ] Disable Purchase, Logout and profile for guests
 
 [ ] Enable cart for guests
+
+[ ] getDisplayName() is not defined in user-home - is state.user not a User at this point? (just a js obj?)
+
+[ ] bug: Guest user adds to cart, then same browser, someone logs in, and logs out - the guest user is gone, can't get the guest cart back.
+
+[ ] when do we expire guest ids? (what happens when we run out of user ids?)
 
 ### Other issues
 
