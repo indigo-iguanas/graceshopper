@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react'
+import Dinero from 'dinero.js'
 
 const OrderDetailCard = ({items}) => {
   return (
@@ -18,6 +19,10 @@ const OrderDetailCard = ({items}) => {
       </thead>
       <tbody>
         {items.map(item => {
+          const price = Dinero({
+            amount: Number(item.emotion.price),
+            currency: 'USD'
+          }).toFormat('$0,0.00')
           return (
             <tr key={item.id}>
               <td>{item.emotion.name}</td>
@@ -28,7 +33,7 @@ const OrderDetailCard = ({items}) => {
                   alt={item.emotion.name}
                 />
               </td>
-              <td>{`$${item.emotion.price}`}</td>
+              <td>{`${price}`}</td>
             </tr>
           )
         })}
