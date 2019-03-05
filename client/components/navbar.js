@@ -8,14 +8,18 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
   <div>
     <nav className="columns" className="header">
       <div className="column" className="navbar-start">
-        <img
-          src="https://seeklogo.com/images/B/be-cool-logo-D08F2BAE07-seeklogo.com.png"
-          className="image is-64x64"
-          id="logo"
-        />
-        <h1 className="title is-2" id="logo-title">
-          EMOTIONS 'Я' US
-        </h1>
+        <Link to="/">
+          <img
+            src="https://seeklogo.com/images/B/be-cool-logo-D08F2BAE07-seeklogo.com.png"
+            className="image is-64x64"
+            id="logo"
+          />
+        </Link>
+        <Link to="/">
+          <h1 className="title is-2" id="logo-title">
+            EMOTIONS 'Я' US
+          </h1>
+        </Link>
       </div>
       {isLoggedIn ? (
         <div className="column" className="navbar-end">
