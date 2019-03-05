@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getEmotionFromServer} from '../store/emotions'
 import {addEmotionToCart} from '../store/cart'
-
 import EmotionCard from './emotionCard'
 
 class Emotions extends Component {
