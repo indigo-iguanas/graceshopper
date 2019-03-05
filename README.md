@@ -27,17 +27,21 @@ Environment variables (either in a local file - do not push to github - or Herok
 
 ## TODO ------
 
-[x] no multiple purchases
+### More tests!
 
-[ ] api for add to cart, reject dups
+### Persistent guest cart issues
 
-[ ] CD
+See TODO comments.
 
-[ ] prices
+[ ] getDisplayName() is not defined in user-home - is state.user not a User at this point? (just a js obj?)
 
-[ ] rudimentary api security
+[ ] Guest user adds to cart, then same browser, someone logs in, and logs out - the guest user is gone, can't get the guest cart back.
 
-[ ] emotions should show for guests
+[ ] Disable Logout and profile for guests
+
+[ ] Enable cart for guests
+
+### Other issues
 
 [ ] show a message on successful purchase
 
@@ -46,12 +50,6 @@ Environment variables (either in a local file - do not push to github - or Herok
 [ ] generalized "flash" area at top of page: you already have one of these in cart, you just bought, errors, etc
 
 [ ] css: catalog space between spreads unfilled last line out - want a grid, leave space at end
-
-[ ] tests!
-
-[ ] api auth: minimal - middleware isAuthenticatedUser
-
-[ ] cart icon in upper right
 
 [ ] cart on rhs? responsive: not in mobile width
 

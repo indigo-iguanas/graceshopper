@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {LineItem, Order, Emotion} = require('../db/models/index.js')
+const {LineItem, Order, Emotion, User} = require('../db/models/index.js')
 module.exports = router
 
 router.get('/:id', async (req, res, next) => {
@@ -19,6 +19,23 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  if (!req.user) {
+    try {
+      // TODO const ret = await axios('/auth/signup', { email: null })
+      // axios gives connection refused. why?
+      // the following code copied from auth/index.js
+      // make it an aux function? where can we put it?
+      const user = await User.create({email: null, isGuest: true})
+      req.login(user, err => (err ? next(err) : -17))
+      req.session.passport.user = user.id
+    } catch (err) {
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        res.status(401).send('User already exists')
+      } else {
+        next(err)
+      }
+    }
+  }
   try {
     const userId = req.session.passport.user
     const emotionId = req.body.emotionId

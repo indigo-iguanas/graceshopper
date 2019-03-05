@@ -22,7 +22,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    displayName: state.user.getDisplayName()
+    displayName: state.user.email || 'Guest' // TODO why isn't getDisplayName() defined here? Is state.user not a User object?
   }
 }
 
