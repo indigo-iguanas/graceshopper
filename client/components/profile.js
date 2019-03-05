@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Dinero from 'dinero.js'
 import {me, fetchOrders, getPurchaseLineItems} from '../store'
 import {withRouter} from 'react-router-dom'
 import OrderDetailCard from './orderDetailCard'
@@ -25,10 +26,13 @@ class Profile extends Component {
         <div>
           {allOrders.orders.length ? (
             allOrders.orders.map(order => {
+              const convertedTotal = Dinero({
+                amount: Number(order.subTotal),
+                currency: 'USD'
+              }).toFormat('$0,0.00')
               const purchasedItems = this.props.allOrders.purchasedItems.filter(
                 item => item.orderId === order.id
               )
-              console.log('this is in order', order)
               return (
                 <div className="card" id="orderCard" key={order.id}>
                   <h1 title="OrderId">OrderId: {order.id}</h1>
@@ -36,7 +40,7 @@ class Profile extends Component {
                     subTotal={order.subTotal}
                     items={purchasedItems}
                   />
-                  <h1>Total: {`$${order.subTotal}`}</h1>
+                  <h1>Total: {`${convertedTotal}`}</h1>
                 </div>
               )
             })
