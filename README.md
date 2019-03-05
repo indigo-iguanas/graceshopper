@@ -33,6 +33,11 @@ Environment variables (either in a local file - do not push to github - or Herok
 
 See TODO comments.
 
+[ ] Guest who signs up - confirm retains cart, and can now purchase.
+
+[ ] Guest who then logs in (as opposed to guest who signs up).
+Merge guest cart with existing cart? Discard guest cart? Keep it if doesn't already have things in cart?
+
 [ ] Disable Purchase, Logout and profile for guests
 
 [ ] Enable cart for guests

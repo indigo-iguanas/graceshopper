@@ -42,16 +42,16 @@ describe('User model', () => {
       })
 
       it('returns false if user is not a guest', () => {
-        expect(cody.isGuest()).to.be.equal(false)
+        expect(cody.isGuest).to.be.equal(false)
         expect(cody.convertToRegisteredUser(guestPassword)).to.be.equal(false)
-        expect(cody.isGuest()).to.be.equal(false)
+        expect(cody.isGuest).to.be.equal(false)
         expect(cody.correctPassword('bones')).to.be.equal(true)
       })
 
       it('returns true if it converted a guest to a registered user', () => {
-        expect(guest.isGuest()).to.be.equal(true)
+        expect(guest.isGuest).to.be.equal(true)
         expect(guest.convertToRegisteredUser(guestPassword)).to.be.equal(true)
-        expect(guest.isGuest()).to.be.equal(false)
+        expect(guest.isGuest).to.be.equal(false)
         expect(guest.correctPassword(guestPassword)).to.be.equal(true)
         expect(guest.correctPassword(guestPassword + 'z')).to.be.equal(false)
       })

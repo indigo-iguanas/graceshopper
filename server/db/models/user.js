@@ -30,12 +30,13 @@ const User = db.define('user', {
   isGuest: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
-    defaultValue: false,
+    defaultValue: false
     // Making `.guest` act like a function hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
-    get() {
+    // TODO: doesn't work as a prop for navbar and routes if it is a function, because the state.user is serialized? Is exposing this a security risk?
+    /*get() {
       return () => this.getDataValue('isGuest')
-    }
+    }*/
   }
 })
 
@@ -47,13 +48,13 @@ module.exports = User
 User.prototype.correctPassword = function(candidatePwd) {
   // Any password should be considered INcorrect for a guest...
   return (
-    !this.isGuest() &&
+    !this.isGuest &&
     User.encryptPassword(candidatePwd, this.salt()) === this.password()
   )
 }
 
 User.prototype.convertToRegisteredUser = function(password) {
-  if (!this.isGuest()) {
+  if (!this.isGuest) {
     return false
   } else {
     this.isGuest = false
@@ -65,7 +66,7 @@ User.prototype.convertToRegisteredUser = function(password) {
 }
 
 User.prototype.getDisplayName = function() {
-  if (this.isGuest()) {
+  if (this.isGuest) {
     return 'Guest'
   } else {
     return this.email
@@ -92,7 +93,7 @@ User.encryptPassword = function(plainText, salt) {
  */
 const setSaltAndPassword = user => {
   // guests don't get passwords
-  if (!user.isGuest()) {
+  if (!user.isGuest) {
     if (user.changed('password')) {
       user.salt = User.generateSalt()
       user.password = User.encryptPassword(user.password(), user.salt())

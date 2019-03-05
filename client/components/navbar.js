@@ -4,13 +4,13 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isRegisteredUser, isGuest}) => (
   <div>
     <nav className="columns" className="header">
       <div className="column">
-        <h1 className="title is-2">EMOTIONS 'Я' US</h1>
+        <h1 className="title is-2">EMOTIONS &rsquo;Я&rsquo; US</h1>
       </div>
-      {isLoggedIn ? (
+      {isRegisteredUser ? (
         <div className="column">
           {/* The navbar will show these links after you log in */}
           <Link to="/home">All Emotions</Link>
@@ -18,6 +18,19 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/cart">
+            <img
+              className="image is-48x48"
+              src="http://www.clker.com/cliparts/z/w/u/l/v/F/marcs-shopping-cart-md.png"
+            />
+          </Link>
+        </div>
+      ) : isGuest ? (
+        <div>
+          {/* The navbar will show these links for guests */}
+          <Link to="/">All Emotions</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
           <Link to="/cart">
             <img
               className="image is-48x48"
@@ -43,7 +56,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isRegisteredUser: !!state.user.id && !state.user.isGuest,
+    isGuest: !!state.user.id && state.user.isGuest
   }
 }
 
@@ -62,5 +76,6 @@ export default connect(mapState, mapDispatch)(Navbar)
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isRegisteredUser: PropTypes.bool.isRequired,
+  isGuest: PropTypes.bool.isRequired
 }
