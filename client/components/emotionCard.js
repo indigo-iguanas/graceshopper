@@ -20,9 +20,9 @@ const emotionCard = ({clickHandler, emotion}) => {
         </em>
         <button
           className="button is-success"
-          type="button"
           name={emotion.id}
           onClick={clickHandler}
+          type="button"
         >
           Add To Cart
         </button>
