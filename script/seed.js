@@ -27,8 +27,7 @@ async function seed() {
     }),
     Emotion.create({
       name: 'ennui',
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
+      imageUrl: 'http://emojiry.com/wp-content/uploads/2017/03/1f620.png',
       price: 150
     }),
     Emotion.create({
@@ -40,17 +39,19 @@ async function seed() {
     Emotion.create({
       name: 'joy',
       imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmh6MHYXudMU3JOkzPQJa2I3Y2UxvXqlKqfRJHsVT0pBv3DGF41g',
       price: 500
     }),
     Emotion.create({
       name: 'purring',
       imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
+        'https://66.media.tumblr.com/4c224c88783085d52f9d1544935a9466/tumblr_inline_pikz8cLj4n1sx6sgb_1280.png',
       price: 10000
     }),
     Emotion.create({
       name: 'aggravation',
+      imageUrl:
+        'https://jcdunnvox.files.wordpress.com/2017/11/exploding-head-emoji.jpeg',
       price: 150000
     })
   ])
