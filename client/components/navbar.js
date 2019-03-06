@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, user}) => (
+const Navbar = ({handleClick, isLoggedIn, user, cart}) => (
   <div>
     <nav className="columns" className="header">
       <div className="column" className="navbar-start">
@@ -34,6 +34,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
               className="image is-48x48"
               src="http://www.clker.com/cliparts/z/w/u/l/v/F/marcs-shopping-cart-md.png"
             />
+            <p>{`[${cart.cart.length}]`}</p>
           </Link>
         </div>
       ) : (
@@ -56,7 +57,8 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
+    cart: state.cart
   }
 }
 
